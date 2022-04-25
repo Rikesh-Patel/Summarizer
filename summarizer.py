@@ -42,7 +42,7 @@ def set_bg(png_file):
     """ % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-set_bg('/assets/background.png')
+set_bg('assets/background.png')
 
 
 # User input text request
