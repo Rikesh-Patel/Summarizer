@@ -1,4 +1,3 @@
-import base64
-from summa import summarizer
-import streamlit as st
-import pandas as pd
+summa == 1.2.0
+streamlit == 1.8.1
+pandas == 1.4.2
