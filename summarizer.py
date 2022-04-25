@@ -9,6 +9,11 @@ import pandas as pd
 st.set_page_config(
     page_title='Project Summarizer'
 )
+
+st.sidebar.header('User Input Features')
+ratio =  st.sidebar.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
+)
+
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
         Basic Text Summarizer
@@ -50,8 +55,7 @@ set_bg('assets/background.png')
 
 input_sent = st.text_area("Input Text", "", height=200)
 # User input for summarization percent request
-ratio =  st.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
-)
+
 summarized_text = summarizer.summarize(
 input_sent, ratio=ratio, language="english", split=True, scores=True
 )
