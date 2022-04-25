@@ -17,7 +17,7 @@ st.markdown("""
     )
     
 st.caption("""
-        <p style='text-align: center'>
+        <p style='text-align: center; color: #FFFFFF;'>
         by <a href='https://www.rikeshpatel.io/'>Rikesh Patel</a>
         </p>
     """, unsafe_allow_html=True
@@ -49,16 +49,16 @@ set_bg('assets/background.png')
 input_sent = st.text_area("Input Text", "", height=200)
 # User input for summarization percent request
 ratio = st.slider(
-"Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01
+"<p style="color: #FFFFFF;"> Summarization factor </p>", min_value=0.0, max_value=1.0, value=0.3, step=0.01
 )
 summarized_text = summarizer.summarize(
 input_sent, ratio=ratio, language="english", split=True, scores=True
 )
 # Print out the results.
 
-st.markdown("""<style>.big-font {    font-size:10px !important;
+st.markdown("""<style>.big-font {    font-size:10px !important;color: #FFFFFF;
 }</style>""", unsafe_allow_html=True)
 
 for sentence, score in summarized_text:
-    st.markdown('<p class="big-font">'+ sentence +'</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font" style="color: #FFFFFF;">'+ sentence +'</p>', unsafe_allow_html=True)
     
