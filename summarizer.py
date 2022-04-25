@@ -37,6 +37,7 @@ def set_bg(png_file):
         .stApp {
         background-image: url("data:image/png;base64,%s");
         background-size: cover;
+        color=#FFFFFF;
         }
         </style>
     """ % bin_str
@@ -46,10 +47,12 @@ set_bg('assets/background.png')
 
 
 # User input text request
+st.markdown("""<style>.big-font {    font-size:10px !important;color: #FFFFFF;
+}</style>"""
 input_sent = st.text_area("Input Text", "", height=200)
 # User input for summarization percent request
 ratio =  st.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
-)
+), unsafe_allow_html=True)
 summarized_text = summarizer.summarize(
 input_sent, ratio=ratio, language="english", split=True, scores=True
 )
