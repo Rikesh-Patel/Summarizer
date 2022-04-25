@@ -63,7 +63,7 @@ set_bg('assets/background.png')
 
 # User input text request
 
-input_sent = st.text_area("Input Text", "", height=200)
+input_sent = st.text_area(placeholder="Input Text", "", height=200)
 # User input for summarization percent request
 
 summarized_text = summarizer.summarize(
