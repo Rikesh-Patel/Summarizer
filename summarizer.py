@@ -10,7 +10,7 @@ st.set_page_config(
     page_title='Project Summarizer'
 )
 st.markdown("""
-        <h1 style='text-align: center; margin-bottom: -30px;'>
+        <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
         Basic Text Summarizer
         </h1>
     """, unsafe_allow_html=True
