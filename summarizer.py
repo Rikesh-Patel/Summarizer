@@ -10,13 +10,15 @@ st.set_page_config(
     page_title='Project Summarizer'
 )
 
-st.sidebar.header('User Input Features')
-st.sidebar.caption("""
+st.sidebar.button("""
         <p style='text-align: center; color: #FFFFFF;'>
         <a href='https://www.rikeshpatel.io/'>Return to Portfolio</a>
         </p>
     """, unsafe_allow_html=True
     )
+
+st.sidebar.header('User Input Features')
+
 ratio =  st.sidebar.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
 )
 
