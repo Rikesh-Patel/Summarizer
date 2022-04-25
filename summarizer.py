@@ -48,9 +48,9 @@ set_bg('assets/background.png')
 # User input text request
 input_sent = st.text_area("Input Text", "", height=200)
 # User input for summarization percent request
-ratio = st.slider(
-<p style="color: #FFFFFF;"> + "Summarization factor" + </p>, min_value=0.0, max_value=1.0, value=0.3, step=0.01
-)
+ratio = <p style="color: #FFFFFF;"> st.slider(
+ "Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
+) </p>
 summarized_text = summarizer.summarize(
 input_sent, ratio=ratio, language="english", split=True, scores=True
 )
