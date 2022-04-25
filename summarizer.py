@@ -10,7 +10,7 @@ st.set_page_config(
     page_title='Project Summarizer'
 )
 
-st.sidebar.button("""
+st.sidebar.markdown("""
         <p style='text-align: center; color: #FFFFFF; background-color: white;
   color: black;
   border: 2px solid #e7e7e7; color: black;'>
