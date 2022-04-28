@@ -26,7 +26,7 @@ ratio =  st.sidebar.slider("Summarization factor", min_value=0.0, max_value=1.0,
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
-        Basic Text Summarizer
+      Text Summarizer
         </h1>
     """, unsafe_allow_html=True
     )
