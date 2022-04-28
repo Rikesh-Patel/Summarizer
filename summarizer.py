@@ -14,7 +14,7 @@ st.sidebar.markdown("""
         <p style='text-align: center; color: #FFFFFF; background-color: white;
   color: black;
   border: 2px solid #e7e7e7; color: black;'>
-        <a href='https://www.rikeshpatel.io/' target="_self">Return to Portfolio</a>
+        <a href='https://www.rikeshpatel.io/'>Return to Portfolio</a>
         </p>
     """, unsafe_allow_html=True
     )
