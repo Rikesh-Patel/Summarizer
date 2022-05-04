@@ -19,6 +19,7 @@ st.sidebar.markdown("""
     """, unsafe_allow_html=True
     )
 
+# Create sidebar for possible user inputs
 st.sidebar.header('User Input Features')
 
 ratio =  st.sidebar.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
@@ -69,7 +70,7 @@ input_sent = st.text_area("", "Input Text", height=200)
 summarized_text = summarizer.summarize(
 input_sent, ratio=ratio, language="english", split=True, scores=True
 )
-# Print out the results.
+# Print out the results
 
 st.markdown("""<style>.big-font {    font-size:10px !important;color: #FFFFFF;
 }</style>""", unsafe_allow_html=True)
