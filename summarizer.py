@@ -62,8 +62,11 @@ def set_bg(png_file):
 set_bg('assets/background.png')
 
 
-# User input text request
+import geocoder
+g = geocoder.ip('me')
+st.write(g.current_result)
 
+# User input text request
 input_sent = st.text_area("", "Input Text", height=200)
 # User input for summarization percent request
 
