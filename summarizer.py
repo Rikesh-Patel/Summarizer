@@ -66,14 +66,46 @@ set_bg('assets/background.png')
 from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent='my_application')
-location = geolocator.geolocate()
+location = geolocator.geocode()
 
 st.write('Latitude:', location.latitude)
 st.write('Longitude:', location.longitude)
 
 
 
+st.write()
 
+# Add select box
+select_box_input = st.empty()
+selected_option = select_box_input.selectbox("Select option:")
+
+# Update options in select box based on input text
+@st.cache
+def update_options(selected_option):
+    suggestions = pyautocomplete.suggest(selected_option)
+    select_box_input.selectbox("Select option:", suggestions)
+
+update_options(selected_option)
+
+# Display selected option
+st.write(f"Selected option: {selected_option}")
+
+
+if selected_option:
+    location = geolocator.geocode(selected_option)
+    
+    # Get the latitude and longitude from the location object
+    lat = location.latitude
+    lng = location.longitude
+    
+    # Display the latitude and longitude in the Streamlit app
+    st.write(f'Latitude: {lat}')
+    st.write(f'Longitude: {lng}')
+    
+    
+    
+    
+    
 
 
 
