@@ -62,26 +62,14 @@ def set_bg(png_file):
 set_bg('assets/background.png')
 
 
-import geocoder
-st.markdown(
-    """
-    <script>
-    function getCurrentPosition() {
-      return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(
-          position => resolve(position),
-          error => reject(error)
-        );
-      });
-    }
-    </script>
-    """
-)
 
-position = st.button('Get Current Position')
-if position:
-  result = st.markdown
-  st.write(result)
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent='my_application')
+location = geolocator.geolocate()
+
+st.write('Latitude:', location.latitude)
+st.write('Longitude:', location.longitude)
 
 
 
