@@ -69,7 +69,7 @@ st.write('Longitude:', location.longitude)
 
 st.write()
 
-
+st.header('A header with _italics_ :blue[colors] and emojis :sunglasses:')
 
 # Create a text input field
 input_text=''
