@@ -63,8 +63,23 @@ set_bg('assets/background.png')
 
 
 import geocoder
-user_agent = st.javascript("return navigator.userAgent")
-st.write('User Agent:', user_agent)
+st.markdown(
+    """
+    <script>
+    function getUserAgent() {
+      return navigator.userAgent;
+    }
+    </script>
+    """
+)
+
+user_agent = st.text_input('Enter a JavaScript expression:', 'getUserAgent()')
+result = st.text_input('Result:', script=f'return {user_agent}')
+st.write('User Agent:', result)
+
+
+
+
 
 
 
