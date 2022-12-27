@@ -83,9 +83,6 @@ input_text=''
 input_text = st.text_input('Enter text:', input_text)
 
 
-# Create a set of radio buttons with placeholder options
-selected_option = st.radio('Select an option:', ['Option 1', 'Option 2'])
-
 def autocomplete_geolocation(query):
     url = "https://nominatim.openstreetmap.org/search"
     params = {
@@ -104,13 +101,7 @@ if input_text:
   options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
   selected_option = st.radio('Select an option:', options)
 else:
-  options = ['Option 1', 'Option 2']
-
-
-
-
-
-
+  options = []
 
 
 
