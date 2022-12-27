@@ -81,7 +81,7 @@ st.write()
 # Create a text input field
 input_text=''
 input_text = st.text_input('Enter text:', input_text)
-
+selected_option = ''
 
 def autocomplete_geolocation(query):
     url = "https://nominatim.openstreetmap.org/search"
