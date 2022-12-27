@@ -59,7 +59,7 @@ set_bg('assets/background.png')
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Location:', input_text)
+input_text = st.text_input('Search', input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -82,6 +82,7 @@ if input_text:
 else:
   options = []
 
+geolocator = Nominatim(user_agent='my_application')
 
 if selected_option:
     location = geolocator.geocode(selected_option)
