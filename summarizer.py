@@ -76,7 +76,7 @@ st.write('Longitude:', location.longitude)
 st.write()
 
 # Create a set of radio buttons with placeholder options
-selected_option = st.radio('Select an option:', ['', 'Option 1', 'Option 2'])
+selected_option = st.radio('Select an option:', ['Option 1', 'Option 2'])
 
 # Create a text input field
 input_text=''
@@ -86,7 +86,7 @@ input_text = st.text_input('Enter text:', input_text)
 if input_text:
   options = [pyautocomplete.suggest(input_text)]
 else:
-  options = ['', 'Option 1', 'Option 2']
+  options = ['Option 1', 'Option 2']
 
 selected_option = st.radio('Select an option:', options, index=selected_option)
 
