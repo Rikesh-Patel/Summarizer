@@ -6,6 +6,8 @@ import streamlit as st
 import pandas as pd
 import requests
 from geopy.geocoders import Nominatim
+import json
+
 
 # Page title and name
 st.set_page_config(
@@ -66,7 +68,7 @@ st.write()
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Location::', input_text, style={"color": "white"})
+input_text = st.text_input('Location:', input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
