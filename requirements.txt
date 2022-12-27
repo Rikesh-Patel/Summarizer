@@ -5,3 +5,5 @@ click==8.0
 protobuf == 3.19.3
 geocoder==1.38.1
 folium== 0.12.1
+geopy==1.17.0
+gensim==3.6.0
