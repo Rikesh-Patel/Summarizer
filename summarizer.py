@@ -78,9 +78,9 @@ st.markdown(
     """
 )
 
-position = st.text_input('Enter a JavaScript expression:', 'getCurrentPosition()')
-result = st.text_input('Result:', script=f'return {position}')
-st.write('Position:', result)
+position = st.button('Get Current Position')
+if position:
+  result = st.markdown
 
 
 
