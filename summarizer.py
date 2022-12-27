@@ -4,6 +4,7 @@ import base64
 from summa import summarizer
 import streamlit as st
 import pandas as pd
+import requests
 
 # Page title and name
 st.set_page_config(
