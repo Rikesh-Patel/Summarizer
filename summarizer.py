@@ -63,8 +63,10 @@ set_bg('assets/background.png')
 
 
 import geocoder
-g = geocoder.ip('me')
-st.write(g.current_result)
+user_agent = st.javascript("return navigator.userAgent")
+st.write('User Agent:', user_agent)
+
+
 
 # User input text request
 input_sent = st.text_area("", "Input Text", height=200)
