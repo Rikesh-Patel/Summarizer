@@ -81,6 +81,7 @@ st.markdown(
 position = st.button('Get Current Position')
 if position:
   result = st.markdown
+  st.write(result)
 
 
 
