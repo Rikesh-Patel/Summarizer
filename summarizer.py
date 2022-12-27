@@ -9,10 +9,10 @@ from geopy.geocoders import Nominatim
 import json
 import folium
 import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+#nltk.download('stopwords')
+#nltk.download('punkt')
+#nltk.download('wordnet')
+#nltk.download('omw-1.4')
 
 # Page title and name
 st.set_page_config(
@@ -73,7 +73,7 @@ st.write()
 
 # Create a text input field
 input_text=''
-input_text = st.text_input("blue[Location:]", input_text)
+input_text = st.text_input(":blue[Location:]", input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
