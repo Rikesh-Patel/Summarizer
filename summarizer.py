@@ -67,7 +67,7 @@ set_bg('assets/background.png')
 from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent='my_application')
-location = geolocator.geocode('my location')
+location = geolocator.geocode('me')
 
 st.write('Latitude:', location.latitude)
 st.write('Longitude:', location.longitude)
