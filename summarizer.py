@@ -1,5 +1,3 @@
-
-
 import base64
 from summa import summarizer
 import streamlit as st
@@ -15,15 +13,13 @@ import nltk
 #nltk.download('omw-1.4')
 
 # Page title and name
-st.set_page_config(
-    page_title='Welp'
-)
+st.set_page_config(page_title='Welp')
 
 
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
-      Welp: Restaurant Reviews and Ratings
+        Welp: Reviews and Ratings
         </h1>
     """, unsafe_allow_html=True
     )
@@ -59,21 +55,11 @@ set_bg('assets/background.png')
 
 
 
-geolocator = Nominatim(user_agent='my_application')
-location = geolocator.geocode('me')
 
-st.write('Latitude:', location.latitude)
-st.write('Longitude:', location.longitude)
-
-
-
-st.write()
-
-st.header('A header with _italics_ :blue[colors] and emojis :sunglasses:')
 
 # Create a text input field
 input_text=''
-input_text = st.text_input(':blue[Location]', input_text)
+input_text = st.text_input('Location:', input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -92,7 +78,7 @@ def autocomplete_geolocation(query):
 # Update the options of the radio buttons based on the text input
 if input_text:
   options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
-  selected_option = st.radio('', options, style={"color": "white"})
+  selected_option = st.radio('', options)
 else:
   options = []
 
@@ -105,8 +91,8 @@ if selected_option:
     lng = location.longitude
     
     # Display the latitude and longitude in the Streamlit app
-    st.write(f'Latitude: {lat}', style={"color": "white"})
-    st.write(f'Longitude: {lng}', style={"color": "white"})
+    st.write(f'Latitude: {lat}')
+    st.write(f'Longitude: {lng}')
     
     
     
