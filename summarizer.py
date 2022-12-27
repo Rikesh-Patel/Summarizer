@@ -7,6 +7,7 @@ import pandas as pd
 import requests
 from geopy.geocoders import Nominatim
 import json
+import folium
 
 
 # Page title and name
@@ -68,7 +69,7 @@ st.write()
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Location:', input_text, format={"color": "white"})
+input_text = st.text_input(blue['Location:'], input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
