@@ -5,30 +5,18 @@ from summa import summarizer
 import streamlit as st
 import pandas as pd
 import requests
+from geopy.geocoders import Nominatim
 
 # Page title and name
 st.set_page_config(
-    page_title='Project Summarizer'
+    page_title='Welp'
 )
 
-st.sidebar.markdown("""
-        <p style='text-align: center; color: #FFFFFF; background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7; color: black;'>
-        <a href='https://www.rikeshpatel.io/'>Return to Portfolio</a>
-        </p>
-    """, unsafe_allow_html=True
-    )
 
-# Create sidebar for possible user inputs
-st.sidebar.header('User Input Features')
-
-ratio =  st.sidebar.slider("Summarization factor", min_value=0.0, max_value=1.0, value=0.3, step=0.01 
-)
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
-      Text Summarizer
+      Welp: Restaurant Reviews and Ratings
         </h1>
     """, unsafe_allow_html=True
     )
@@ -64,8 +52,6 @@ set_bg('assets/background.png')
 
 
 
-from geopy.geocoders import Nominatim
-
 geolocator = Nominatim(user_agent='my_application')
 location = geolocator.geocode('me')
 
@@ -80,7 +66,7 @@ st.write()
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Enter text:', input_text)
+input_text = st.text_input('Location::', input_text, style={"color": "white"})
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -99,10 +85,9 @@ def autocomplete_geolocation(query):
 # Update the options of the radio buttons based on the text input
 if input_text:
   options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
-  selected_option = st.radio('Select an option:', options)
+  selected_option = st.radio('', options, style={"color": "white"})
 else:
   options = []
-
 
 
 if selected_option:
@@ -113,22 +98,20 @@ if selected_option:
     lng = location.longitude
     
     # Display the latitude and longitude in the Streamlit app
-    st.write(f'Latitude: {lat}')
-    st.write(f'Longitude: {lng}')
+    st.write(f'Latitude: {lat}', style={"color": "white"})
+    st.write(f'Longitude: {lng}', style={"color": "white"})
     
     
     
     
     
-
-
 
 # User input text request
 input_sent = st.text_area("", "Input Text", height=200)
 # User input for summarization percent request
 
 summarized_text = summarizer.summarize(
-input_sent, ratio=ratio, language="english", split=True, scores=True
+input_sent, ratio=0.2, language="english", split=True, scores=True
 )
 # Print out the results
 
