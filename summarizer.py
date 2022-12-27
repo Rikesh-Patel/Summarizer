@@ -85,10 +85,11 @@ input_text = st.text_input('Enter text:', input_text)
 # Update the options of the radio buttons based on the text input
 if input_text:
   options = [pyautocomplete.suggest(input_text)]
+  selected_option = st.radio('Select an option:', options)
 else:
   options = ['Option 1', 'Option 2']
 
-selected_option = st.radio('Select an option:', options, index=selected_option)
+
 
 
 
