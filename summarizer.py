@@ -75,16 +75,32 @@ st.write('Longitude:', location.longitude)
 
 st.write()
 
-# Create a set of radio buttons with placeholder options
-selected_option = st.radio('Select an option:', ['Option 1', 'Option 2'])
+
 
 # Create a text input field
 input_text=''
 input_text = st.text_input('Enter text:', input_text)
 
+
+# Create a set of radio buttons with placeholder options
+selected_option = st.radio('Select an option:', ['Option 1', 'Option 2'])
+
+def autocomplete_geolocation(query):
+    url = "https://nominatim.openstreetmap.org/search"
+    params = {
+        "format": "json",
+        "q": query,
+        "limit": 4,
+        "addressdetails": 1
+    }
+    response = requests.get(url, params=params)
+    return response.json()
+
+
+
 # Update the options of the radio buttons based on the text input
 if input_text:
-  options = [pyautocomplete.suggest(input_text)]
+  options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
   selected_option = st.radio('Select an option:', options)
 else:
   options = ['Option 1', 'Option 2']
