@@ -66,16 +66,21 @@ import geocoder
 st.markdown(
     """
     <script>
-    function getUserAgent() {
-      return navigator.userAgent;
+    function getCurrentPosition() {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          position => resolve(position),
+          error => reject(error)
+        );
+      });
     }
     </script>
     """
 )
 
-user_agent = st.text_input('Enter a JavaScript expression:', 'getUserAgent()')
-result = st.text_input('Result:', script=f'return {user_agent}')
-st.write('User Agent:', result)
+position = st.text_input('Enter a JavaScript expression:', 'getCurrentPosition()')
+result = st.text_input('Result:', script=f'return {position}')
+st.write('Position:', result)
 
 
 
