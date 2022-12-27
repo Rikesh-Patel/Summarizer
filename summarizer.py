@@ -68,7 +68,7 @@ st.write()
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Location:', input_text)
+input_text = st.text_input('Location:', input_text, format={"color": "white"})
 selected_option = ''
 
 def autocomplete_geolocation(query):
