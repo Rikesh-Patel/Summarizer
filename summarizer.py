@@ -75,20 +75,25 @@ st.write('Longitude:', location.longitude)
 
 st.write()
 
-# Add select box
-select_box_input = st.empty()
-selected_option = select_box_input.selectbox("Select option:")
+# Create a set of radio buttons with placeholder options
+selected_option = st.radio('Select an option:', ['', 'Option 1', 'Option 2'])
 
-# Update options in select box based on input text
-@st.cache
-def update_options(selected_option):
-    suggestions = pyautocomplete.suggest(selected_option)
-    select_box_input.selectbox("Select option:", suggestions)
+# Create a text input field
+input_text=''
+input_text = st.text_input('Enter text:', input_text)
 
-update_options(selected_option)
+# Update the options of the radio buttons based on the text input
+if input_text:
+  options = [pyautocomplete.suggest(input_text)]
+else:
+  options = ['', 'Option 1', 'Option 2']
 
-# Display selected option
-st.write(f"Selected option: {selected_option}")
+selected_option = st.radio('Select an option:', options, index=selected_option)
+
+
+
+
+
 
 
 if selected_option:
