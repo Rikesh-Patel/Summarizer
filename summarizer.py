@@ -111,7 +111,7 @@ if selected_option:
 
     response = requests.get(url, headers=headers)
     if 'error' in response.json():
-    print(response.json()['error']['code'])
+        print(response.json()['error']['code'])
     
     import json
     import pandas as pd
@@ -119,9 +119,9 @@ if selected_option:
     df = df.sort_values("distance")
 
     def extract_list(json_obj):
-    # flat_df = pd.json_normalize(json_obj)
-    # return flat_df['name'].tolist()
-    return [json['title'] for json in json_obj]
+        # flat_df = pd.json_normalize(json_obj)
+        # return flat_df['name'].tolist()
+        return [json['title'] for json in json_obj]
 
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
