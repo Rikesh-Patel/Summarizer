@@ -96,41 +96,41 @@ if selected_option:
     st.write(f'Longitude: {lng}')
     
 
-# Yelp
-# Get Business ID
-import requests
-#&latitude=latitude&longitude=longtiude&radius=radius
-query = "Pizza"
-location = "culver city, ca"
-url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
+    # Yelp
+    # Get Business ID
+    import requests
+    #&latitude=latitude&longitude=longtiude&radius=radius
+    query = "Pizza"
+    location = "culver city, ca"
+    url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
 
-headers = {
-    "accept": "application/json",
-    "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
-}
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
+    }
 
-response = requests.get(url, headers=headers)
-if 'error' in response.json():
-  print(response.json()['error']['code'])
-  
-import json
-import pandas as pd
-df = pd.json_normalize(response.json(), 'businesses')
-df = df.sort_values("distance")
+    response = requests.get(url, headers=headers)
+    if 'error' in response.json():
+    print(response.json()['error']['code'])
+    
+    import json
+    import pandas as pd
+    df = pd.json_normalize(response.json(), 'businesses')
+    df = df.sort_values("distance")
 
-def extract_list(json_obj):
-  # flat_df = pd.json_normalize(json_obj)
-  # return flat_df['name'].tolist()
-  return [json['title'] for json in json_obj]
+    def extract_list(json_obj):
+    # flat_df = pd.json_normalize(json_obj)
+    # return flat_df['name'].tolist()
+    return [json['title'] for json in json_obj]
 
-# Apply the function to each row in the DataFrame
-df['categories'] = df['categories'].apply(extract_list)
-df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-       'categories', 'rating', 'transactions', 'price', 'display_phone',
-       'distance', 'coordinates.latitude', 'coordinates.longitude',
-       'location.display_address'])]
+    # Apply the function to each row in the DataFrame
+    df['categories'] = df['categories'].apply(extract_list)
+    df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance', 'coordinates.latitude', 'coordinates.longitude',
+        'location.display_address'])]
 
-st.dataframe(df)    
+    st.dataframe(df)    
     
     
     
