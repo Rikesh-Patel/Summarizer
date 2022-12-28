@@ -54,7 +54,7 @@ def set_bg(png_file):
 set_bg('assets/background.png')
 
 
-
+search=0
 
 
 # Create a text input field
