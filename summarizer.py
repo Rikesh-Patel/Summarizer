@@ -94,8 +94,9 @@ if selected_option:
     # Display the latitude and longitude in the Streamlit app
     st.write(f'Latitude: {lat}')
     st.write(f'Longitude: {lng}')
-    
+    search = st.button("Search")
 
+if search:
     # Yelp
     # Get Business ID
     import requests
