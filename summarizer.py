@@ -139,7 +139,7 @@ if search:
     # Allow the user to sort the data based on any column
     sort_column = st.selectbox('Sort by column', df.columns)
     
-    st.dataframe(df.sort_values(by=sort_column, inplace=True), caption="Restaurants in your Area", index = False) 
+    st.dataframe(df.sort_values(by=sort_column), caption="Restaurants in your Area", index = False) 
 
     # Map
 
