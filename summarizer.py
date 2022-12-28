@@ -59,7 +59,7 @@ set_bg('assets/background.png')
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Search', input_text)
+input_text = st.text_input('Search Bar', input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -130,10 +130,56 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
+    df[df['is_closed']=True]
+    df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance','location.display_address'])]
+       
+    
+    # Allow the user to sort the data based on any column
+    sort_column = st.selectbox('Sort by column', df.columns)
+    
+    st.dataframe(df.sort_values(by=sort_column, inplace=True), caption="Restaurants in your Area", index = False) 
 
-    st.dataframe(df)    
-    
-    
+    # Map
+
+    import folium
+
+    # create a map centered at the average latitude and longitude of the restaurants
+    map = folium.Map(location=[lat, lng], zoom_start=13)
+
+    folium.Marker( location=[avg_lat, avg_lon], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
+
+    def get_color(value):
+        # Map the value to a color scale from yellow to green
+        value = (value - 1.0) / (5.0 - 1.0)
+        r = int(255 * (1 - value))
+        g = int(255 * value)
+        b = 0
+        return f'#{r:02x}{g:02x}{b:02x}'
+
+    # add a marker for each restaurant
+    def create_marker(row):
+        # Create a marker at the latitude and longitude specified in the row
+        marker = folium.Marker( location=[row['coordinates.latitude'], 
+                                        row['coordinates.longitude']], 
+                            popup=f"<a href={row['url']}>{row['name']}</a>",
+                            icon=folium.DivIcon(
+                                    icon_size=(36,36),
+                                    icon_anchor=(18,36),
+                                    html='<div style="display: flex; align-items: center;">'
+                                        f'<i class="fa fa-map-marker" style="font-size: 30pt;text-shadow: 2px 1px black; color: {get_color(row["rating"])}"></i>'
+                                        
+                                        f'<div style="font-size: 12pt; font-weight: bold; color: white;text-align:left; margin-left: -22px;text-shadow: 2px 1px black;" > {row["rating"]}</div>'
+                                        f'<div style="font-size: 8pt; font-weight: bold; line-height: 1; margin-left: 8px; text-shadow: 2px 1px white;">{row["name"]}</div>'
+                                        '</div>'
+            
+        ))
+        return marker.add_to(map)
+
+    # display the map
+    df.apply(create_marker, axis=1)
+    map
     
 
 # User input text request
