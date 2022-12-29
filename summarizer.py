@@ -143,6 +143,7 @@ if search:
     sort_column = st.selectbox('Sort by column', df.columns)
     
     st.dataframe(df.sort_values(by=sort_column)) 
+    step2 = 1
 
    
 
@@ -153,7 +154,7 @@ if search:
 
 
 # create a map centered at the average latitude and longitude of the restaurants
-if df:
+if step2:
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
     folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
