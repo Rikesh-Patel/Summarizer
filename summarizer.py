@@ -188,7 +188,7 @@ if step2:
         return marker.add_to(map)
 
     # display the map
-    df.apply(create_marker, axis=1)
+    # df.apply(create_marker, axis=1)
 
 st_map = st_folium(map, width=700, height=450)
     
