@@ -134,7 +134,7 @@ if search:
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
     # df = df[df['is_closed']=="false"]
-    df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+    df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
        
@@ -142,7 +142,9 @@ if search:
     # Allow the user to sort the data based on any column
     sort_column = st.selectbox('Sort by column', df.columns)
     
-    st.dataframe(df.sort_values(by=sort_column)) 
+    st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
    
