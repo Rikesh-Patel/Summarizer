@@ -121,28 +121,28 @@ if search:
     import pandas as pd
     df = pd.json_normalize(response.json(), 'businesses')
     df = df.sort_values("distance")
-    df1 = df.copy()
-    # def extract_list(json_obj):
-    #     return [json['title'] for json in json_obj]
+    def extract_list(json_obj):
+        return [json['title'] for json in json_obj]
 
-    # # Apply the function to each row in the DataFrame
-    # df['categories'] = df['categories'].apply(extract_list)
-    # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     'distance', 'coordinates.latitude', 'coordinates.longitude',
-    #     'location.display_address'])]
+    # Apply the function to each row in the DataFrame
+    df['categories'] = df['categories'].apply(extract_list)
+    df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance', 'coordinates.latitude', 'coordinates.longitude',
+        'location.display_address'])]
+    df1 = df.copy()
     # df = df[df['is_closed']=="false"]
     
        
     
     # Allow the user to sort the data based on any column
-    # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     'distance','location.display_address'])].columns)
+    sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance','location.display_address'])].columns)
     
-    # st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     'distance','location.display_address'])].sort_values(by=sort_column)) 
+    st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
 st.dataframe(df1)
@@ -180,6 +180,6 @@ def create_marker(row):
     return marker.add_to(map)
 
 
-# df.apply(create_marker, axis=1)
+df1.apply(create_marker, axis=1)
 
 st_map = st_folium(map, width=700, height=450)
