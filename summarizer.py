@@ -122,27 +122,27 @@ if search:
     df = pd.json_normalize(response.json(), 'businesses')
     df = df.sort_values("distance")
 
-    def extract_list(json_obj):
-        return [json['title'] for json in json_obj]
+    # def extract_list(json_obj):
+    #     return [json['title'] for json in json_obj]
 
-    # Apply the function to each row in the DataFrame
-    df['categories'] = df['categories'].apply(extract_list)
-    df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance', 'coordinates.latitude', 'coordinates.longitude',
-        'location.display_address'])]
+    # # Apply the function to each row in the DataFrame
+    # df['categories'] = df['categories'].apply(extract_list)
+    # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+    #     'distance', 'coordinates.latitude', 'coordinates.longitude',
+    #     'location.display_address'])]
     # df = df[df['is_closed']=="false"]
     
        
     
     # Allow the user to sort the data based on any column
-    sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])].columns)
-    
-    st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])].sort_values(by=sort_column)) 
+    # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+    #     'distance','location.display_address'])].columns)
+    st.dataframe(df)
+    # st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+    #     'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
    
