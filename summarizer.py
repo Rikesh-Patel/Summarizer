@@ -130,7 +130,7 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
-    df = df[df['is_closed']=="true"]
+    df = df[df['is_closed']=="false"]
     df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
@@ -143,13 +143,13 @@ if search:
 
     # Map
 
-    # import folium
-    # from streamlit_folium import st_folium
+    import folium
+    from streamlit_folium import st_folium
 
 
-    # # create a map centered at the average latitude and longitude of the restaurants
-    # map = folium.Map(location=[lat, lng], zoom_start=13)
-
+    # create a map centered at the average latitude and longitude of the restaurants
+    map = folium.Map(location=[lat, lng], zoom_start=13)
+    st_folium(map)
     # folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
     # def get_color(value):
