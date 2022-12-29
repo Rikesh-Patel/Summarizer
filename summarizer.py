@@ -182,9 +182,6 @@ if search:
     # df.apply(create_marker, axis=1)
     # st_folium(map)
 
-if not map:
-    map = folium.Map(location=[50, 50], zoom_start=13,  scrollWheelZoom=False)
-
 st_map = st_folium(map, width=700, height=450)
     
 
