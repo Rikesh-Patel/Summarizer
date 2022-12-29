@@ -123,8 +123,6 @@ if search:
     df = df.sort_values("distance")
 
     def extract_list(json_obj):
-        # flat_df = pd.json_normalize(json_obj)
-        # return flat_df['name'].tolist()
         return [json['title'] for json in json_obj]
 
     # Apply the function to each row in the DataFrame
@@ -183,23 +181,6 @@ def create_marker(row):
     return marker.add_to(map)
 
 
-df = df.apply(create_marker, axis=1)
+df.apply(create_marker, axis=1)
 
 st_map = st_folium(map, width=700, height=450)
-    
-
-# User input text request
-input_sent = st.text_area("", "Input Text", height=200)
-# User input for summarization percent request
-
-summarized_text = summarizer.summarize(
-input_sent, ratio=0.2, language="english", split=True, scores=True
-)
-# Print out the results
-
-st.markdown("""<style>.big-font {    font-size:10px !important;color: #FFFFFF;
-}</style>""", unsafe_allow_html=True)
-
-for sentence, score in summarized_text:
-    st.markdown('<p class="big-font" style="color: #FFFFFF;">'+ sentence +'</p>', unsafe_allow_html=True)
-    
