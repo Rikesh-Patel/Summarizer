@@ -58,8 +58,6 @@ set_bg('assets/background.png')
 search=0
 map=0
 lat=0
-df=0
-step2=0
 
 # Create a text input field
 input_text=''
@@ -144,20 +142,15 @@ if search:
     sort_column = st.selectbox('Sort by column', df.columns)
     
     st.dataframe(df.sort_values(by=sort_column)) 
-    step2 = 1
 
    
 
-
-
-
-
-
-
 # create a map centered at the average latitude and longitude of the restaurants
-if step2:
+if lat:
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
+
+if map:
     folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
     def get_color(value):
@@ -187,8 +180,8 @@ if step2:
         ))
         return marker.add_to(map)
 
-    # display the map
-    # df.apply(create_marker, axis=1)
+
+    df.apply(create_marker, axis=1)
 
 st_map = st_folium(map, width=700, height=450)
     
