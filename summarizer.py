@@ -96,6 +96,16 @@ if selected_option:
     st.write(f'Longitude: {lng}')
     search = st.button("Search")
 
+import folium
+from streamlit_folium import st_folium
+
+
+    # create a map centered at the average latitude and longitude of the restaurants
+    
+if search:
+    map = folium.Map(location=[lat, lng])
+    st_map = st_folium(map, width=700, height=450)
+    
 if search:
     # Yelp
     # Get Business ID
@@ -180,15 +190,7 @@ if search:
 
     # Map
 
-import folium
-from streamlit_folium import st_folium
 
-
-    # create a map centered at the average latitude and longitude of the restaurants
-    
-if search:
-    map = folium.Map(location=[lat, lng])
-    st_map = st_folium(map, width=700, height=450)
     
 
 # User input text request
