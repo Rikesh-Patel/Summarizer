@@ -19,3 +19,4 @@ numpy==1.21.6
 nltk==3.7
 pysummarization==1.1.9
 NRCLex==3.0.0
+streamlit-folium==0.8.1

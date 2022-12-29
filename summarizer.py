@@ -130,10 +130,10 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
-    # df = df[df['is_closed']==True]
-    # df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-        # 'categories', 'rating', 'transactions', 'price', 'display_phone',
-        # 'distance','location.display_address'])]
+    df = df[df['is_closed']=="true"]
+    df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        'categories', 'rating', 'transactions', 'price', 'display_phone',
+        'distance','location.display_address'])]
        
     
     # Allow the user to sort the data based on any column
@@ -179,7 +179,7 @@ if search:
 
     # display the map
     df.apply(create_marker, axis=1)
-    st.pyplot(map)
+    st_folium(map)
 
     
     
