@@ -148,7 +148,7 @@ if search:
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13)
 
-    folium.Marker( location=[avg_lat, avg_lon], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
+    folium.Marker( location=[lat, lon], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
     def get_color(value):
         # Map the value to a color scale from yellow to green
