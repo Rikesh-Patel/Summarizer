@@ -145,7 +145,7 @@ if search:
         'distance','location.display_address'])].sort_values(by=sort_column)
     step2 = 1
 
-st.DataFrame(df_view)
+st.DataFrame(df1)
 # create a map centered at the average latitude and longitude of the restaurants
 map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
