@@ -145,7 +145,8 @@ if search:
    
 
 # create a map centered at the average latitude and longitude of the restaurants
-map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
+if not lat:
+    map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
 
 
