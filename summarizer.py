@@ -7,7 +7,7 @@ from geopy.geocoders import Nominatim
 import json
 import folium
 import nltk
-from streamlit_folium import st_folium
+from streamlit_folium import st_folium, folium_static
 #nltk.download('stopwords')
 #nltk.download('punkt')
 #nltk.download('wordnet')
@@ -182,4 +182,4 @@ def create_marker(row):
 
 df1.apply(create_marker, axis=1)
 
-st_map = st_folium(map, width=700, height=450)
+st_map = folium_static(map, width=700, height=450)
