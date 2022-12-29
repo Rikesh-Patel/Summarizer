@@ -140,11 +140,12 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])].columns)
     
-    st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+    df_view = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])].sort_values(by=sort_column)) 
+        'distance','location.display_address'])].sort_values(by=sort_column)
     step2 = 1
 
+st.DataFrame(df_view)
 # create a map centered at the average latitude and longitude of the restaurants
 map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
