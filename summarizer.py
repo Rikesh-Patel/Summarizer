@@ -115,7 +115,7 @@ if search:
 
     response = requests.get(url, headers=headers)
     if 'error' in response.json():
-        print(response.json()['error']['code'])
+        st.write(response.json()['error']['code'])
     
     import json
     import pandas as pd
@@ -182,4 +182,4 @@ def create_marker(row):
 
 df1.apply(create_marker, axis=1)
 
-st_map = st_folium(map, width=700, height=450)
+st_folium(map, width=700, height=450)
