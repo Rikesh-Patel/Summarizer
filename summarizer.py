@@ -141,14 +141,7 @@ if search:
     
     st.dataframe(df.sort_values(by=sort_column)) 
 
-    # Map
 
-    import folium
-    from streamlit_folium import st_folium
-
-
-    # create a map centered at the average latitude and longitude of the restaurants
-    map = folium.Map(location=[lat, lng])
     
 
 
@@ -185,7 +178,16 @@ if search:
     # df.apply(create_marker, axis=1)
     # st_folium(map)
 
-if map:
+    # Map
+
+import folium
+from streamlit_folium import st_folium
+
+
+    # create a map centered at the average latitude and longitude of the restaurants
+    
+if search:
+    map = folium.Map(location=[lat, lng])
     st_map = st_folium(map, width=700, height=450)
     
 
