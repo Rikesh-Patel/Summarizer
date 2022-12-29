@@ -130,7 +130,7 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
-    df = df[df['is_closed']=="false"]
+    # df = df[df['is_closed']=="false"]
     df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
