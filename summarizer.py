@@ -7,6 +7,7 @@ from geopy.geocoders import Nominatim
 import json
 import folium
 import nltk
+from streamlit_folium import st_folium
 #nltk.download('stopwords')
 #nltk.download('punkt')
 #nltk.download('wordnet')
@@ -141,11 +142,7 @@ if search:
     
     st.dataframe(df.sort_values(by=sort_column)) 
 
-    # Map
-
-    import folium
-    from streamlit_folium import st_folium
-
+   
 
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
@@ -185,8 +182,10 @@ if search:
     # df.apply(create_marker, axis=1)
     # st_folium(map)
 
-while map:
-    st_map = st_folium(map, width=700, height=450)
+if not map:
+    map = folium.Map(location=[50, 50], zoom_start=13,  scrollWheelZoom=False)
+
+st_map = st_folium(map, width=700, height=450)
     
 
 # User input text request
