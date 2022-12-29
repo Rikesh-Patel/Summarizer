@@ -180,6 +180,6 @@ def create_marker(row):
     return marker.add_to(map)
 
 
-# df1.apply(create_marker, axis=1)
+df1.apply(create_marker, axis=1)
 
 st_map = st_folium(map, width=700, height=450)
