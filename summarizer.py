@@ -131,9 +131,9 @@ if search:
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
     # df = df[df['is_closed']==True]
-    df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])]
+    # df = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        # 'categories', 'rating', 'transactions', 'price', 'display_phone',
+        # 'distance','location.display_address'])]
        
     
     # Allow the user to sort the data based on any column
