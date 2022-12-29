@@ -145,7 +145,6 @@ if search:
         'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
-st.dataframe(df1)
 # create a map centered at the average latitude and longitude of the restaurants
 map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
@@ -180,6 +179,6 @@ def create_marker(row):
     return marker.add_to(map)
 
 
-df1.apply(create_marker, axis=1)
+# df1.apply(create_marker, axis=1)
 
 st_folium(map, width=700, height=450)
