@@ -59,6 +59,7 @@ search=0
 map=0
 lat=0
 df=0
+step2=0
 
 # Create a text input field
 input_text=''
