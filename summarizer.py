@@ -148,8 +148,7 @@ if search:
    
 
 # create a map centered at the average latitude and longitude of the restaurants
-if lat:
-    map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
+map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
 
 folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
