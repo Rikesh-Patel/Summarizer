@@ -58,6 +58,7 @@ set_bg('assets/background.png')
 search=0
 map=0
 lat=0
+step2 = 0
 
 # Create a text input field
 input_text=''
@@ -142,6 +143,7 @@ if search:
     sort_column = st.selectbox('Sort by column', df.columns)
     
     st.dataframe(df.sort_values(by=sort_column)) 
+    step2 = 1
 
    
 
@@ -150,7 +152,7 @@ if lat:
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
 
-if map:
+if step2:
     folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
     def get_color(value):
