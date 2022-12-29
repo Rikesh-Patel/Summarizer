@@ -115,7 +115,7 @@ if search:
 
     response = requests.get(url, headers=headers)
     if 'error' in response.json():
-        st.write(response.json()['error']['code'])
+        print(response.json()['error']['code'])
     
     import json
     import pandas as pd
@@ -140,12 +140,12 @@ if search:
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])].columns)
     
-    df_view = df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+    st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])].sort_values(by=sort_column)
+        'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
-st.DataFrame(df1)
+st.dataframe(df1)
 # create a map centered at the average latitude and longitude of the restaurants
 map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
@@ -182,4 +182,4 @@ def create_marker(row):
 
 # df1.apply(create_marker, axis=1)
 
-st_folium(map, width=700, height=450)
+st_map = st_folium(map, width=700, height=450)
