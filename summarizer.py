@@ -121,7 +121,7 @@ if search:
     import pandas as pd
     df = pd.json_normalize(response.json(), 'businesses')
     df = df.sort_values("distance")
-    df1.df.copy()
+    df1.copy()
     # def extract_list(json_obj):
     #     return [json['title'] for json in json_obj]
 
