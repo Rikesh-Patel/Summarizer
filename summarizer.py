@@ -143,7 +143,8 @@ if search:
 
     # Map
 
-    import folium
+    import leafmap.foliumap as folium
+
 
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13)
