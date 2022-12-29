@@ -59,7 +59,7 @@ search=0
 map=0
 lat=0
 step2 = 0
-
+df1 = pd.DataFrame()
 # Create a text input field
 input_text=''
 input_text = st.text_input('Search Bar', input_text)
@@ -121,7 +121,7 @@ if search:
     import pandas as pd
     df = pd.json_normalize(response.json(), 'businesses')
     df = df.sort_values("distance")
-
+    df1.df.copy()
     # def extract_list(json_obj):
     #     return [json['title'] for json in json_obj]
 
@@ -139,14 +139,13 @@ if search:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    st.dataframe(df)
+    
     # st.dataframe(df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].sort_values(by=sort_column)) 
     step2 = 1
 
-   
-
+st.dataframe(df1)
 # create a map centered at the average latitude and longitude of the restaurants
 map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
