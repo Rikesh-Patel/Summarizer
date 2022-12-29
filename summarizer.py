@@ -143,7 +143,8 @@ if search:
 
     # Map
 
-    import leafmap.foliumap as folium
+    import folium
+    from streamlit_folium import st_folium
 
 
     # create a map centered at the average latitude and longitude of the restaurants
@@ -180,7 +181,7 @@ if search:
 
     # display the map
     df.apply(create_marker, axis=1)
-    map.popup()
+    st_folium(map)
 
     
     
