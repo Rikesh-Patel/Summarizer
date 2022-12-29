@@ -179,8 +179,7 @@ if search:
 
     # display the map
     df.apply(create_marker, axis=1)
-    from streamlit_forum import st_folium
-    st_folium(map)
+    map.popup()
 
     
     
