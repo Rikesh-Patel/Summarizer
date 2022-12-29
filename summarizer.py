@@ -57,6 +57,7 @@ set_bg('assets/background.png')
 
 search=0
 map=0
+lat=0
 
 # Create a text input field
 input_text=''
