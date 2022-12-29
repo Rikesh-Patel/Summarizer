@@ -55,7 +55,7 @@ set_bg('assets/background.png')
 
 
 search=0
-
+map=0
 
 # Create a text input field
 input_text=''
@@ -149,7 +149,7 @@ if search:
 
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13)
-    st_map = st_folium(map, width=700, height=450)
+    
 
 
     # folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
@@ -185,7 +185,8 @@ if search:
     # df.apply(create_marker, axis=1)
     # st_folium(map)
 
-    
+if map:
+    st_map = st_folium(map, width=700, height=450)
     
 
 # User input text request
