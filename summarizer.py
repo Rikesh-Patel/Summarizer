@@ -57,29 +57,11 @@ set_bg('assets/background.png')
 
 search=0
 step2=0
+step3=0
 
 
-# Create a DataFrame with some text data
-df = pd.DataFrame({'Text': ['Row 1', 'Row 2', 'Row 3']})
 
-# Display the DataFrame as a table
-st.table(df)
 
-# Create a sidebar with a dropdown menu
-selected_row = st.sidebar.selectbox('Select a row:', ['', 'Row 1', 'Row 2', 'Row 3'])
-
-# Set the selected_text variable based on the selected row
-if selected_row == 'Row 1':
-  selected_text = 'Row 1'
-elif selected_row == 'Row 2':
-  selected_text = 'Row 2'
-elif selected_row == 'Row 3':
-  selected_text = 'Row 3'
-else:
-  selected_text = ''
-
-# Display the selected text
-st.write('Selected text:', selected_text)
 
 
 
@@ -214,3 +196,14 @@ if step2:
     df.apply(create_marker, axis=1)
 
     st_map = folium_static(map, width=700, height=450)
+
+    # Create a restaurant with a dropdown menu
+    selected_r = st.selectbox('Select a restaurant', df.name.tolist())
+
+    # Display the selected text
+    st.write('Selected restaurant:', selected_r)
+    
+    step3 = st.button('Details')
+
+if step3:
+    st.write('', df[df['name']==selected_r])
