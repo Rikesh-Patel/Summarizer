@@ -144,11 +144,11 @@ if step2:
     st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]) 
-    st.dataframe(df.style.apply(lambda x: "background-color: red"))
+    st._legacy_dataframe(df.style.apply(lambda x: "background-color: red"))
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
-    
+
 
 
 
