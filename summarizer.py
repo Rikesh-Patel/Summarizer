@@ -62,13 +62,19 @@ step2=0
 # Create a DataFrame with some text data
 df = pd.DataFrame({'Text': ['Row 1', 'Row 2', 'Row 3']})
 
-# Define a callback function
-def on_row_click(row):
+# Display the DataFrame as a table
+st.table(df)
+
+# Define a function to handle the button click
+def on_button_click(row):
   global selected_text
   selected_text = row['Text']
 
-# Display the DataFrame with the on_row_click callback function
-st.dataframe(df, callback=on_row_click)
+# Iterate over the rows of the DataFrame
+for index, row in df.iterrows():
+  # Display a button for each row
+  if st.button(row['Text']):
+    on_button_click(row)
 
 # Display the selected text
 st.write('Selected text:', selected_text)
