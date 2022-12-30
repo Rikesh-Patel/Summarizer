@@ -140,34 +140,15 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df['image'] = df['image_url'].apply(lambda row: st.image(row))
+    # df['image'] = df['image_url'].apply(lambda row: st.image(row))
     st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]) 
-
+    st.dataframe(df.style.apply(lambda x: "background-color: red"))
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
-    # Define a custom HTML template for the DataFrame
-    html = """
-    <style>
-    img {
-        width: 100px;
-        height: 100px;
-    }
-    </style>
-    {}
-    """
-
-    # Use the DataFrame.style method to apply the HTML template to the DataFrame
-    styled_df = (df.style
-    .format({'Image': '<img src="{}" />'})
-    .set_table_attributes('style="display:inline"')
-    .set_caption('Images')
-    .render())
-
-    # Display the styled DataFrame using the st.write function
-    st.write(styled_df, unsafe_allow_html=True)
+    
 
 
 
