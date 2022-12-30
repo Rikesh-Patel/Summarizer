@@ -140,7 +140,7 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df['image'] = df['image_url'].apply(lambda row: st.image(row), axis=1)
+    df['image'] = df['image_url'].apply(lambda row: st.image(row))
     st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])].sort_values(by=sort_column)) 
