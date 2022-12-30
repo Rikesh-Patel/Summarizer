@@ -148,6 +148,31 @@ if step2:
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
+    # Define a custom HTML template for the DataFrame
+    html = """
+    <style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+    </style>
+    {}
+    """
+
+    # Use the DataFrame.style method to apply the HTML template to the DataFrame
+    styled_df = (df.style
+    .format({'Image': '<img src="{}" />'})
+    .set_table_attributes('style="display:inline"')
+    .set_caption('Images')
+    .render())
+
+    # Display the styled DataFrame using the st.write function
+    st.write(styled_df, unsafe_allow_html=True)
+
+
+
+
+
 
     folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
