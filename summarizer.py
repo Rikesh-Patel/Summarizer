@@ -59,6 +59,24 @@ search=0
 step2=0
 
 
+# Create a DataFrame with some text data
+df = pd.DataFrame({'Text': ['Row 1', 'Row 2', 'Row 3']})
+
+# Define a callback function
+def on_row_click(row):
+  global selected_text
+  selected_text = row['Text']
+
+# Display the DataFrame with the on_row_click callback function
+st.dataframe(df, callback=on_row_click)
+
+# Display the selected text
+st.write('Selected text:', selected_text)
+
+
+
+
+
 # Create a text input field
 input_text=''
 input_text = st.text_input('Search Bar', input_text)
@@ -104,7 +122,7 @@ if search:
     import requests
     #&latitude=latitude&longitude=longtiude&radius=radius
     query = "Pizza"
-    location = "culver city, ca"
+
     url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
 
     headers = {
@@ -144,7 +162,7 @@ if step2:
     st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]) 
-    st._legacy_dataframe(df.style.apply(lambda x: "background-color: red"))
+
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
