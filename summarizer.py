@@ -65,16 +65,18 @@ df = pd.DataFrame({'Text': ['Row 1', 'Row 2', 'Row 3']})
 # Display the DataFrame as a table
 st.table(df)
 
-# Define a function to handle the button click
-def on_button_click(row):
-  global selected_text
-  selected_text = row['Text']
+# Create a sidebar with a dropdown menu
+selected_row = st.sidebar.selectbox('Select a row:', ['', 'Row 1', 'Row 2', 'Row 3'])
 
-# Iterate over the rows of the DataFrame
-for index, row in df.iterrows():
-  # Display a button for each row
-  if st.button(row['Text']):
-    on_button_click(row)
+# Set the selected_text variable based on the selected row
+if selected_row == 'Row 1':
+  selected_text = 'Row 1'
+elif selected_row == 'Row 2':
+  selected_text = 'Row 2'
+elif selected_row == 'Row 3':
+  selected_text = 'Row 3'
+else:
+  selected_text = ''
 
 # Display the selected text
 st.write('Selected text:', selected_text)
