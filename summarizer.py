@@ -56,6 +56,7 @@ set_bg('assets/background.png')
 
 
 search=0
+step2=0
 
 
 # Create a text input field
@@ -129,11 +130,12 @@ if search:
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
     # df = df[df['is_closed']=="false"]
+    step2=1
     
        
     
 
-if df:
+if step2:
     # Allow the user to sort the data based on any column
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
