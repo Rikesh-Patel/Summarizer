@@ -143,7 +143,7 @@ if step2:
     df['image'] = df['image_url'].apply(lambda row: st.image(row))
     st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])].sort_values(by=sort_column)) 
+        'distance','location.display_address'])]) 
 
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
