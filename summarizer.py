@@ -142,8 +142,8 @@ if search:
     df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
     df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
     df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
-    df['rating'] = df['rating'].round(decimals = 2)
-    df['distance'] = df['distance'].round(decimals = -2)
+    df['rating'] = np.round(df['rating'], decimals = 1)
+    df['distance'] = np.round(df['distance'], decimals = -2)
     df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>', axis=1)
     step2=1
     
