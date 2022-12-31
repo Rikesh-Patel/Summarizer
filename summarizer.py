@@ -133,11 +133,18 @@ if search:
 
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
+    df['price'] = df['price'].apply(lambda row: "" if row == "<NA>", axis=1)
     df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
         'location.display_address'])]
     # df = df[df['is_closed']=="false"]
+    df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
+    df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
+    df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
+    df['rating'] = df['rating'].round()
+    df['distance'] = df['distance'].round()
+    df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>', axis=1)
     step2=1
     
        
