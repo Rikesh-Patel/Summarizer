@@ -133,7 +133,7 @@ if search:
 
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
-    df['price'] = df['price'].apply(lambda row: "" if row == "<NA>", axis=1)
+    df['price'] = df['price'].apply(lambda row: "" if row == "<NA>")
     df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance', 'coordinates.latitude', 'coordinates.longitude',
