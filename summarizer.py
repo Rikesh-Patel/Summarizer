@@ -2,6 +2,7 @@ import base64
 from summa import summarizer
 import streamlit as st
 import pandas as pd
+import numpy as np
 import requests
 from geopy.geocoders import Nominatim
 import json
