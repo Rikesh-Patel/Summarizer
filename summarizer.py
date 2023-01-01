@@ -145,7 +145,7 @@ if search:
     df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
     df['price'] = df['price'].fillna('')
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
-    df['rating'] =df['rating'].apply(str).str.replace('000','').apply(int)
+    df['rating'] =df['rating'].apply(str).str.replace('000','').astype(int)
     df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
     df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>')
     step2=1
