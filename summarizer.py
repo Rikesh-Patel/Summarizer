@@ -135,10 +135,6 @@ if search:
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
     df.loc[df['price'] == "<NA>"] = ''
-    df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance', 'coordinates.latitude', 'coordinates.longitude',
-        'location.display_address'])]
     # df = df[df['is_closed']=="false"]
     df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
     df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
@@ -147,7 +143,12 @@ if search:
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
     df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
-    df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>')
+    df['name'] = df.apply(lambda row: f'<a target="_blank" href="{row['url']}">row['name']</a>')
+    df['image_url'] = df.apply(lambda row: f'<img src="{row['image_url']}" width="60"')
+    # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+    #     'distance', 'coordinates.latitude', 'coordinates.longitude',
+    #     'location.display_address'])]
     step2=1
     
        
@@ -159,10 +160,11 @@ if step2:
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
     # df['image'] = df['image_url'].apply(lambda row: st.image(row))
-    st.dataframe(df.loc[:,df.columns.isin(['name', 'image_url', 'url', 'review_count',
+    df_display = df.loc[:,df.columns.isin(['name', 'image_url', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])]) 
-    st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
+        'distance','location.display_address'])]
+    # df_display.columns = ["Name", ] 
+    st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
 
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
