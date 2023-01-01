@@ -134,7 +134,6 @@ if search:
 
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
-    df.loc[df['price'] == "<NA>"] = ''
     # df = df[df['is_closed']=="false"]
     df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
     df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
@@ -143,7 +142,8 @@ if search:
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
     df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
-    df['name'] = df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>')
+    df['image']= df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
+
 
     df['image_url'] = df.apply(lambda row: f'<img src="{row["image_url"]}" width="60"')
     # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
@@ -161,7 +161,7 @@ if step2:
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
     # df['image'] = df['image_url'].apply(lambda row: st.image(row))
-    df_display = df.loc[:,df.columns.isin(['name', 'image_url', 'url', 'review_count',
+    df_display = df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
     # df_display.columns = ["Name", ] 
