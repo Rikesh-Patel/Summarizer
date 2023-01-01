@@ -141,7 +141,7 @@ if search:
     df['price'] = df['price'].fillna('')
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
-    df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
+    df['distance'] = np.round(0.000621371192*df['distance'].astype('int'), decimals = -2)
     df['name']= df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
 
 
@@ -160,13 +160,18 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    # df['image'] = df['image_url'].apply(lambda row: st.image(row))
     df_display = df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
-    # df_display.columns = ["Name", ] 
-    st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+    df_display.columns = ['Name', 'Image', 'Reviews',
+        'Type', 'Rating', 'Transactions', 'Price', 'Phone',
+        'Distance','Address'] 
+    df_display = df_display.reindex(columns= ['Name', 'Image', 'Rating','Reviews','Miles','Price',
+        'Type', 'Transactions', 'Phone',
+        'Address'] )
 
+    st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+    st.write()
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
@@ -218,6 +223,42 @@ if step2:
     st.write('Selected restaurant:', selected_r)
     
     step3 = st.button('Details')
-
+step4 =0
 if step3:
     st.write('', df[df['name']==selected_r])
+    step4 = 1
+
+if step4:
+    # Foursquare
+    import requests
+
+    query = "LaRocco's Pizza 310 837-8345	"
+    location = "Culver City California"
+    ll = "34.024858,-118.394843"
+    min = 1
+    max = 3
+    # &open_now=true&near={location}
+    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=100&min_price={min}&max_price={max}&sort=RELEVANCE&limit=20"
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
+    }
+
+    response = requests.get(url, headers=headers)
+
+    #https://location.foursquare.com/developer/reference/place-details
+
+    import json
+    import pandas as pd
+    df = pd.json_normalize(response.json(), 'results')
+    # df = df.sort_values("distance")
+
+    def extract_list(json_obj):
+    # flat_df = pd.json_normalize(json_obj)
+    # return flat_df['name'].tolist()
+    return [json['name'] for json in json_obj]
+
+    # Apply the function to each row in the DataFrame
+    df['categories'] = df['categories'].apply(extract_list)
+    df
