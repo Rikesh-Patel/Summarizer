@@ -146,7 +146,7 @@ if search:
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] = np.round(df['rating'], decimals = 1)
     df['distance'] = np.round(df['distance'], decimals = -2)
-    df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>', axis=1)
+    df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>')
     step2=1
     
        
