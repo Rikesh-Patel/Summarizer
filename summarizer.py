@@ -143,9 +143,10 @@ if search:
     df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
     df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
     df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
+    df['price'] = df['price'].fillna('')
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
-    df['rating'] = np.round(df['rating'], decimals = 1)
-    df['distance'] = np.round(df['distance'], decimals = -2)
+    df['rating'] =df['rating'].apply(str).str.replace('000','')
+    df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
     df['image_url'] = df['image_url'].apply(lambda row: f'<a target="_blank" href="{row}">Hyperlink</a>')
     step2=1
     
@@ -158,7 +159,7 @@ if step2:
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
     # df['image'] = df['image_url'].apply(lambda row: st.image(row))
-    st.dataframe(df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
+    st.dataframe(df.loc[:,df.columns.isin(['name', 'image_url', 'url', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]) 
 
