@@ -142,10 +142,10 @@ if search:
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
     df['distance'] = np.round(df['distance'].astype('int'), decimals = -2)
-    df['image']= df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
+    df['name']= df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
 
 
-    df['image_url'] = df.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
+    df['image'] = df.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
     # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance', 'coordinates.latitude', 'coordinates.longitude',
