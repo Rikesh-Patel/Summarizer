@@ -16,24 +16,11 @@ from streamlit_folium import st_folium, folium_static
 
 # Page title and name
 st.set_page_config(page_title='Welp')
-button1 = st.button('Check 1')
 
 
-if st.session_state.get('button') != True:
 
-    st.session_state['button'] = button1
 
-if st.session_state['button'] == True:
 
-    st.write("button1 is True")
-
-    if st.button('Check 2'):
-
-        st.write("Hello, it's working")
-
-        st.session_state['button'] = False
-
-        st.checkbox('Reload')
 
 
 st.markdown("""
@@ -125,8 +112,10 @@ if selected_option:
     st.write(f'Latitude: {lat}')
     st.write(f'Longitude: {lng}')
     search = st.button("Search")
+    if st.session_state.get('button') != True:
+        st.session_state['button'] = search
 
-if search:
+if st.session_state['button'] == True:
     # Yelp
     # Get Business ID
 #     import requests
@@ -233,12 +222,14 @@ if search:
 #     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
 #     # Display the selected text
 #     st.write('Selected restaurant:', selected_r)
-    
+
+
+
     step31 = st.button("Details")
 
 if step31:
     st.write('cool')
-
+    st.session_state['button'] = False
 #     selected = df[df['name']==selected_r]
 #     # st.dataframe(selected)
 
