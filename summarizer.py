@@ -161,7 +161,7 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df_display = df_display.loc[:,df.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
+    df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
     df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
     df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
