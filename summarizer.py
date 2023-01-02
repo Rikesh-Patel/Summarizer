@@ -230,10 +230,8 @@ if step4:
     # query = "LaRocco's Pizza 310 837-8345	"
     query = selected['name']
     location = "Culver City California"
-    ll = f"{selected['coordinates.longitude']},{selected['coordinates.latitude']}"
-    # &near={location}
-    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=100&open_now=true&sort=RELEVANCE&limit=20"
-
+    ll = f"{selected['coordinates.latitude']},{selected['coordinates.longitude']}"
+    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=1000&sort=RELEVANCE&limit=20"
     headers = {
         "accept": "application/json",
         "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
