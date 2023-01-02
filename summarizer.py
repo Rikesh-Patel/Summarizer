@@ -92,8 +92,7 @@ geolocator = Nominatim(user_agent='my_application')
 
 
 
-st.session_state['button']=0
-
+button1 = st.button('Search')
 
 if selected_option:
     location = geolocator.geocode(selected_option)
@@ -105,7 +104,7 @@ if selected_option:
     # Display the latitude and longitude in the Streamlit app
     st.write(f'Latitude: {lat}')
     st.write(f'Longitude: {lng}')
-    button1 = st.button('Check 1')
+   
 
 
 if st.session_state.get('button') != True:
