@@ -264,6 +264,7 @@ if st.session_state['button'] == True:
 
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+            st.write(df_fsq)
             st.session_state['button'] = False
     
 # # '''
