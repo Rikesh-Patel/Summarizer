@@ -226,7 +226,7 @@ if step2:
     # st.dataframe(selected)
     # step4 = 1
 
-'''if step4:
+# if step4:
     # Foursquare
     import requests
 
@@ -256,4 +256,4 @@ if step2:
     # # Apply the function to each row in the DataFrame
     # df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
     
-'''
+# '''
