@@ -222,7 +222,7 @@ if step2:
 # if step3:
     st.write('bruh')
 
-    # selected = df[df['name']==selected_r]
+    selected = df[df['name']==selected_r]
     # st.dataframe(selected)
     # step4 = 1
 
