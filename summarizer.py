@@ -160,7 +160,7 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df_display = df.loc[:,df.columns.isin(['name', 'image', 'url', 'review_count',
+    df_display = df.loc[:,df.columns.isin(['name', 'image', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
     df_display.columns = ['Name', 'Image', 'Reviews',
@@ -225,20 +225,20 @@ if step2:
     step3 = st.button('Details')
 step4 =0
 if step3:
-    st.write('', df[df['name']==selected_r])
-    step4 = 1
+    selected = df[df['name']==selected_r]
+    st.write('', selected)
+    step4 = st.button('Details')
 
 if step4:
     # Foursquare
     import requests
 
-    query = "LaRocco's Pizza 310 837-8345	"
+    # query = "LaRocco's Pizza 310 837-8345	"
+    query = selected['name']
     location = "Culver City California"
-    ll = "34.024858,-118.394843"
-    min = 1
-    max = 3
-    # &open_now=true&near={location}
-    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=100&min_price={min}&max_price={max}&sort=RELEVANCE&limit=20"
+    ll = f"{selected['coordinates.longitude']},{selected['coordinates.latitude']}"
+    # &near={location}
+    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=100&open_now=true&sort=RELEVANCE&limit=20"
 
     headers = {
         "accept": "application/json",
