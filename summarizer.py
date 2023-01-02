@@ -257,7 +257,7 @@ if step4:
     def extract_list(json_obj):
     # flat_df = pd.json_normalize(json_obj)
     # return flat_df['name'].tolist()
-    return [json['name'] for json in json_obj]
+        return [json['name'] for json in json_obj]
 
     # Apply the function to each row in the DataFrame
     df['categories'] = df['categories'].apply(extract_list)
