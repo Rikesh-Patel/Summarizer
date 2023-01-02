@@ -230,7 +230,7 @@ if step2:
     # Foursquare
     import requests
 
-    query = selected['name'][0]
+    # query = selected['name'][0]
     location = "Culver City California"
     st.dataframe(selected)
     ll = f"{selected['coordinates.latitude'][0]},{selected['coordinates.longitude'][0]}"
