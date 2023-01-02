@@ -141,11 +141,12 @@ if search:
     df['price'] = df['price'].fillna('')
     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
-    df['distance'] = np.round(0.000621371192*df['distance'].astype('int'), decimals = -2)
-    df['name']= df.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
+    df_display = df.copy()
+    df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
+    df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
 
 
-    df['image'] = df.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
+    df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
     # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance', 'coordinates.latitude', 'coordinates.longitude',
@@ -160,7 +161,7 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df_display = df.loc[:,df.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
+    df_display = df_display.loc[:,df.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
     df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
     df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
