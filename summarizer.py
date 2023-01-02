@@ -212,7 +212,6 @@ if step2:
 
     # Create a restaurant with a dropdown menu
     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
-    selected_r = df.iloc[0]['name']
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
@@ -220,13 +219,9 @@ if step2:
 
 
 if step3:
-
-
     selected = df[df['name']==selected_r]
     # st.dataframe(selected)
-    step4 = 1
-
-if step4:
+    
     # Foursquare
     import requests
 
