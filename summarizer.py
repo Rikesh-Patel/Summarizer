@@ -16,9 +16,8 @@ from streamlit_folium import st_folium, folium_static
 
 # Page title and name
 st.set_page_config(page_title='Welp')
-
-
 button1 = st.button('Check 1')
+
 
 if st.session_state.get('button') != True:
 
@@ -35,8 +34,6 @@ if st.session_state['button'] == True:
         st.session_state['button'] = False
 
         st.checkbox('Reload')
-
-
 
 
 st.markdown("""
@@ -81,7 +78,7 @@ step2=0
 step3=0
 step4=0
 step31=0
-st.session_state['button'] = 0
+
 
 
 
@@ -117,7 +114,6 @@ else:
 
 geolocator = Nominatim(user_agent='my_application')
 
-
 if selected_option:
     location = geolocator.geocode(selected_option)
     
@@ -129,10 +125,8 @@ if selected_option:
     st.write(f'Latitude: {lat}')
     st.write(f'Longitude: {lng}')
     search = st.button("Search")
-    if st.session_state.get('button') != True:
-        st.session_state['button'] = search
 
-if st.session_state['button'] == True:
+if search:
     # Yelp
     # Get Business ID
 #     import requests
@@ -239,16 +233,12 @@ if st.session_state['button'] == True:
 #     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
 #     # Display the selected text
 #     st.write('Selected restaurant:', selected_r)
+    
+    step31 = st.button("Details")
 
+if step31:
+    st.write('cool')
 
-
-
-    st.write("first button")
-    if st.button("Details"):
-        st.write('cool')
-        st.session_state['button'] = False
-        st.checkbox('Reload')
-    # st.session_state['button'] = False
 #     selected = df[df['name']==selected_r]
 #     # st.dataframe(selected)
 
