@@ -17,7 +17,22 @@ from streamlit_folium import st_folium, folium_static
 # Page title and name
 st.set_page_config(page_title='Welp')
 
+import SessionState
 
+button1 = st.empty()
+text1 = st.empty()
+button2 = st.empty()
+text2 = st.empty()
+
+ss = SessionState.get(button1 = False)
+
+if button1.button('1') or ss.button2:
+    ss.button1 = True
+
+if ss.button1:
+    text1.write('you clicked the first button')
+    if button2.button('2'):
+        text2.write('you clicked the second button')
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
