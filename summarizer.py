@@ -112,10 +112,10 @@ if st.session_state.get('button') != True:
     st.session_state['button'] = button1
 
 if st.session_state['button'] == True:
-    if not search:
+    if not selected_option:
         st.session_state['button'] = False
         st.write("Nothing in search")
-    if search:
+    if selected_option:
         st.write("button1 is True")
 
 
