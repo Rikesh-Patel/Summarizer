@@ -230,10 +230,10 @@ if step2:
     # Foursquare
     import requests
 
-    query = selected[0]['name']
+    query = selected['name'][0]
     location = "Culver City California"
     st.dataframe(selected)
-    ll = f"{selected[0]['coordinates.latitude']},{selected[0]['coordinates.longitude']}"
+    ll = f"{selected['coordinates.latitude']},{selected['coordinates.longitude'][0]}"
     st.write(ll)
     url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=1000&sort=RELEVANCE&limit=20"
     headers = {
