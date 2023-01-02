@@ -215,12 +215,12 @@ if step2:
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
-    step3 = st.button("Details")
-
+    but = st.button("Details")
+    step3=1
 
 if step3:
     st.write('cool')
-    
+
 #     selected = df[df['name']==selected_r]
 #     # st.dataframe(selected)
 
