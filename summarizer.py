@@ -16,6 +16,8 @@ from streamlit_folium import st_folium, folium_static
 
 # Page title and name
 st.set_page_config(page_title='Welp')
+button1 = st.button('Check 1')
+
 
 if st.session_state.get('button') != True:
 
@@ -32,7 +34,7 @@ if st.session_state['button'] == True:
         st.session_state['button'] = False
 
         st.checkbox('Reload')
-        
+
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
