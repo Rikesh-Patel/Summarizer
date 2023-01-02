@@ -65,7 +65,7 @@ step2=0
 step3=0
 step4=0
 step31=0
-
+st.session_state['button'] = 0
 
 
 
@@ -100,8 +100,7 @@ else:
   options = []
 
 geolocator = Nominatim(user_agent='my_application')
-if st.session_state.get('button') != True:
-    st.session_state['button'] = search
+
 
 if selected_option:
     location = geolocator.geocode(selected_option)
@@ -114,7 +113,8 @@ if selected_option:
     st.write(f'Latitude: {lat}')
     st.write(f'Longitude: {lng}')
     search = st.button("Search")
-    
+    if st.session_state.get('button') != True:
+        st.session_state['button'] = search
 
 if st.session_state['button'] == True:
     # Yelp
