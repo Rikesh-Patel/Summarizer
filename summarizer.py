@@ -226,11 +226,11 @@ if st.session_state['button'] == True:
 
 
 
-    step31 = st.button("Details")
 
-if step31:
+
+if st.button("Details"):
     st.write('cool')
-    st.session_state['button'] = False
+    # st.session_state['button'] = False
 #     selected = df[df['name']==selected_r]
 #     # st.dataframe(selected)
 
