@@ -231,9 +231,8 @@ if st.session_state['button'] == True:
 
         if st.button('Check 2'):
 
-            st.write("Hello, it's working")
 
-            st.session_state['button'] = False
+            
 
             selected = df[df['name']==selected_r]
             # st.dataframe(selected)
@@ -264,5 +263,6 @@ if st.session_state['button'] == True:
 
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+            st.session_state['button'] = False
     
 # # '''
