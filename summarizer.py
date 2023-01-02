@@ -224,7 +224,7 @@ if step3:
     st.write('', selected)
     step4 = 1
 
-if step4:
+'''if step4:
     # Foursquare
     import requests
 
