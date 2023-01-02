@@ -163,12 +163,8 @@ if step2:
     df_display = df.loc[:,df.columns.isin(['name', 'image', 'review_count',
         'categories', 'rating', 'transactions', 'price', 'display_phone',
         'distance','location.display_address'])]
-    df_display.columns = ['Name', 'Image', 'Reviews',
-        'Type', 'Rating', 'Transactions', 'Price', 'Phone',
-        'Distance','Address'] 
-    df_display = df_display.reindex(columns= ['Name', 'Image', 'Rating','Reviews','Miles','Price',
-        'Type', 'Transactions', 'Phone',
-        'Address'] )
+    df_display.columns = ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
+    df_display = df_display.reindex(columns= ['Name', 'Image', 'Rating','Reviews','Miles','Price', 'Type', 'Transactions', 'Phone', 'Address'] )
 
     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
     st.write()
