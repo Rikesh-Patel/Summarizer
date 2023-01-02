@@ -216,46 +216,42 @@ if step2:
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
-    # step3 = st.button("Details")
+    step3 = st.button("Details")
 
 
-# if step3:
+if step3:
 
 
     selected = df[df['name']==selected_r]
     # st.dataframe(selected)
-    # step4 = 1
+    step4 = 1
 
-# if step4:
+if step4:
     # Foursquare
     import requests
 
-    # query = selected['name'][0]
-    location = "Culver City California"
-    st.dataframe(selected)
     ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
-    st.write(ll)
-    url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=1000&sort=RELEVANCE&limit=20"
+    url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=1000&sort=RELEVANCE&limit=1"
     headers = {
         "accept": "application/json",
         "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
     }
 
     response = requests.get(url, headers=headers)
-    st.write(response.json())
+    # st.write(response.json())
     #https://location.foursquare.com/developer/reference/place-details
 
     # import json
     # import pandas as pd
-    # df_fsq = pd.json_normalize(response.json(), 'results')
-    # # df = df.sort_values("distance")
+    df_fsq = pd.json_normalize(response.json(), 'results')
+    # df = df.sort_values("distance")
 
-    # def extract_list(json_obj):
-    # # flat_df = pd.json_normalize(json_obj)
-    # # return flat_df['name'].tolist()
-    #     return [json['name'] for json in json_obj]
+    def extract_list(json_obj):
+    # flat_df = pd.json_normalize(json_obj)
+    # return flat_df['name'].tolist()
+        return [json['name'] for json in json_obj]
 
-    # # Apply the function to each row in the DataFrame
-    # df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+    # Apply the function to each row in the DataFrame
+    df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
     
 # '''
