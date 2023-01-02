@@ -113,7 +113,7 @@ if st.session_state.get('button') != True:
 
 if st.session_state['button'] == True:
 
-    if search:
+    if selected_option:
         st.write("button1 is True")
 
 
