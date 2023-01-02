@@ -17,22 +17,22 @@ from streamlit_folium import st_folium, folium_static
 # Page title and name
 st.set_page_config(page_title='Welp')
 
-import SessionState
+if st.session_state.get('button') != True:
 
-button1 = st.empty()
-text1 = st.empty()
-button2 = st.empty()
-text2 = st.empty()
+    st.session_state['button'] = button1
 
-ss = SessionState.get(button1 = False)
+if st.session_state['button'] == True:
 
-if button1.button('1') or ss.button2:
-    ss.button1 = True
+    st.write("button1 is True")
 
-if ss.button1:
-    text1.write('you clicked the first button')
-    if button2.button('2'):
-        text2.write('you clicked the second button')
+    if st.button('Check 2'):
+
+        st.write("Hello, it's working")
+
+        st.session_state['button'] = False
+
+        st.checkbox('Reload')
+        
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
