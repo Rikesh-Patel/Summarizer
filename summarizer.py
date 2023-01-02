@@ -60,6 +60,8 @@ search=0
 step2=0
 step3=0
 step4=0
+step31=0
+
 
 
 
