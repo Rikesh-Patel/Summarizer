@@ -209,24 +209,26 @@ if step2:
     df.apply(create_marker, axis=1)
 
     st_map = folium_static(map, width=700, height=450)
+    step3 = 1
 
+if step3:
     # Create a restaurant with a dropdown menu
     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
-    step3 = st.button("Details")
+    step4 = st.button("Details")
 
 
-if step3:
+if step4:
     selected = df[df['name']==selected_r]
     # st.dataframe(selected)
-    
+
     # Foursquare
     import requests
 
     ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
-    url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=1000&sort=RELEVANCE&limit=1"
+    url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=200&sort=RELEVANCE&limit=1"
     headers = {
         "accept": "application/json",
         "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
