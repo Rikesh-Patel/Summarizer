@@ -227,7 +227,7 @@ step4 =0
 if step3:
     selected = df[df['name']==selected_r]
     st.write('', selected)
-    step4 = st.button('Details')
+    step4 = 1
 
 if step4:
     # Foursquare
