@@ -59,7 +59,7 @@ set_bg('assets/background.png')
 search=0
 step2=0
 step3=0
-
+step4=0
 
 
 
@@ -217,7 +217,8 @@ if step2:
     st.write('Selected restaurant:', selected_r)
     
     step3 = st.button('Details')
-step4 =0
+
+
 if step3:
     selected = df[df['name']==selected_r]
     st.write('', selected)
@@ -227,7 +228,6 @@ if step4:
     # Foursquare
     import requests
 
-    # query = "LaRocco's Pizza 310 837-8345	"
     query = selected['name']
     location = "Culver City California"
     ll = f"{selected['coordinates.latitude']},{selected['coordinates.longitude']}"
@@ -238,19 +238,19 @@ if step4:
     }
 
     response = requests.get(url, headers=headers)
-
+    response.json()
     #https://location.foursquare.com/developer/reference/place-details
 
-    import json
-    import pandas as pd
-    df_fsq = pd.json_normalize(response.json(), 'results')
-    # df = df.sort_values("distance")
+    # import json
+    # import pandas as pd
+    # df_fsq = pd.json_normalize(response.json(), 'results')
+    # # df = df.sort_values("distance")
 
-    def extract_list(json_obj):
-    # flat_df = pd.json_normalize(json_obj)
-    # return flat_df['name'].tolist()
-        return [json['name'] for json in json_obj]
+    # def extract_list(json_obj):
+    # # flat_df = pd.json_normalize(json_obj)
+    # # return flat_df['name'].tolist()
+    #     return [json['name'] for json in json_obj]
 
-    # Apply the function to each row in the DataFrame
-    df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
-    df_fsq
+    # # Apply the function to each row in the DataFrame
+    # df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+    
