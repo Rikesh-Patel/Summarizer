@@ -92,6 +92,7 @@ geolocator = Nominatim(user_agent='my_application')
 
 
 
+st.session_state['button']=0
 
 
 if selected_option:
