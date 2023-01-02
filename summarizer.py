@@ -106,7 +106,6 @@ if st.session_state['button'] == True:
 
         st.session_state['button'] = False
 
-        st.checkbox('Reload')
 
 
 
