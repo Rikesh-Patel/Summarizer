@@ -254,3 +254,4 @@ if step3:
     # # Apply the function to each row in the DataFrame
     # df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
     
+'''
