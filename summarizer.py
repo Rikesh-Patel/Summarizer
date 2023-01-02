@@ -112,72 +112,73 @@ if st.session_state.get('button') != True:
     st.session_state['button'] = button1
 
 if st.session_state['button'] == True:
-
+    if not selected_option:
+        st.session_state['button'] = False
     if selected_option:
         st.write("button1 is True")
 
 
     
-        # Yelp
-        # Get Business ID
-    #     import requests
-    #     #&latitude=latitude&longitude=longtiude&radius=radius
-    #     query = "Pizza"
+    # Yelp
+    # Get Business ID
+    import requests
+    #&latitude=latitude&longitude=longtiude&radius=radius
+    query = "Pizza"
 
-    #     url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
+    url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
 
-    #     headers = {
-    #         "accept": "application/json",
-    #         "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
-    #     }
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
+    }
 
-    #     response = requests.get(url, headers=headers)
-    #     if 'error' in response.json():
-    #         print(response.json()['error']['code'])
+    response = requests.get(url, headers=headers)
+    if 'error' in response.json():
+        print(response.json()['error']['code'])
+    
+    import json
+    import pandas as pd
+    df = pd.json_normalize(response.json(), 'businesses')
+    df = df.sort_values("distance")
+    def extract_list(json_obj):
+        return [json['title'] for json in json_obj]
+
+    # Apply the function to each row in the DataFrame
+    df['categories'] = df['categories'].apply(extract_list)
+    # df = df[df['is_closed']=="false"]
+    df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
+    df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
+    df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
+    df['price'] = df['price'].fillna('')
+    df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
+    df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
+    df_display = df.copy()
+    df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
+    df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
+
+
+    df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
+    # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+    #     'distance', 'coordinates.latitude', 'coordinates.longitude',
+    #     'location.display_address'])]
+    step2=1
         
-    #     import json
-    #     import pandas as pd
-    #     df = pd.json_normalize(response.json(), 'businesses')
-    #     df = df.sort_values("distance")
-    #     def extract_list(json_obj):
-    #         return [json['title'] for json in json_obj]
-
-    #     # Apply the function to each row in the DataFrame
-    #     df['categories'] = df['categories'].apply(extract_list)
-    #     # df = df[df['is_closed']=="false"]
-    #     df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
-    #     df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
-    #     df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
-    #     df['price'] = df['price'].fillna('')
-    #     df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
-    #     df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
-    #     df_display = df.copy()
-    #     df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
-    #     df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
-
-
-    #     df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
-    #     # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-    #     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     #     'distance', 'coordinates.latitude', 'coordinates.longitude',
-    #     #     'location.display_address'])]
-    #     step2=1
-        
         
         
 
-    # if step2:
-    #     # Allow the user to sort the data based on any column
-    #     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-    #     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     #     'distance','location.display_address'])].columns)
-    #     df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
-    #     df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
-    #     df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-    #     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
-    #     st.write('')
-    #     # create a map centered at the average latitude and longitude of the restaurants
-    #     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
+    if step2:
+        # Allow the user to sort the data based on any column
+        # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
+        #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+        #     'distance','location.display_address'])].columns)
+        df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
+        df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
+        df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
+        st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+        st.write('')
+        # create a map centered at the average latitude and longitude of the restaurants
+        map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
 
 
@@ -186,44 +187,44 @@ if st.session_state['button'] == True:
 
 
 
-    #     folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
+        folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
-    #     def get_color(value):
-    #         # Map the value to a color scale from yellow to green
-    #         value = (value - 1.0) / (5.0 - 1.0)
-    #         r = int(255 * (1 - value))
-    #         g = int(255 * value)
-    #         b = 0
-    #         return f'#{r:02x}{g:02x}{b:02x}'
+        def get_color(value):
+            # Map the value to a color scale from yellow to green
+            value = (value - 1.0) / (5.0 - 1.0)
+            r = int(255 * (1 - value))
+            g = int(255 * value)
+            b = 0
+            return f'#{r:02x}{g:02x}{b:02x}'
 
-    #     # add a marker for each restaurant
-    #     def create_marker(row):
-    #         # Create a marker at the latitude and longitude specified in the row
-    #         marker = folium.Marker( location=[row['coordinates.latitude'], 
-    #                                         row['coordinates.longitude']], 
-    #                             popup=f"<a href={row['url']}>{row['name']}</a>",
-    #                             icon=folium.DivIcon(
-    #                                     icon_size=(36,36),
-    #                                     icon_anchor=(18,36),
-    #                                     html='<div style="display: flex; align-items: center;">'
-    #                                         f'<i class="fa fa-map-marker" style="font-size: 30pt;text-shadow: 2px 1px black; color: {get_color(row["rating"])}"></i>'
+        # add a marker for each restaurant
+        def create_marker(row):
+            # Create a marker at the latitude and longitude specified in the row
+            marker = folium.Marker( location=[row['coordinates.latitude'], 
+                                            row['coordinates.longitude']], 
+                                popup=f"<a href={row['url']}>{row['name']}</a>",
+                                icon=folium.DivIcon(
+                                        icon_size=(36,36),
+                                        icon_anchor=(18,36),
+                                        html='<div style="display: flex; align-items: center;">'
+                                            f'<i class="fa fa-map-marker" style="font-size: 30pt;text-shadow: 2px 1px black; color: {get_color(row["rating"])}"></i>'
                                             
-    #                                         f'<div style="font-size: 12pt; font-weight: bold; color: white;text-align:left; margin-left: -22px;text-shadow: 2px 1px black;" > {row["rating"]}</div>'
-    #                                         f'<div style="font-size: 8pt; font-weight: bold; line-height: 1; margin-left: 8px; text-shadow: 2px 1px white;">{row["name"]}</div>'
-    #                                         '</div>'
+                                            f'<div style="font-size: 12pt; font-weight: bold; color: white;text-align:left; margin-left: -22px;text-shadow: 2px 1px black;" > {row["rating"]}</div>'
+                                            f'<div style="font-size: 8pt; font-weight: bold; line-height: 1; margin-left: 8px; text-shadow: 2px 1px white;">{row["name"]}</div>'
+                                            '</div>'
                 
-    #         ))
-    #         return marker.add_to(map)
+            ))
+            return marker.add_to(map)
 
 
-    #     df.apply(create_marker, axis=1)
+        df.apply(create_marker, axis=1)
 
-    #     st_map = folium_static(map, width=700, height=450)
+        st_map = folium_static(map, width=700, height=450)
 
-    #     # Create a restaurant with a dropdown menu
-    #     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
-    #     # Display the selected text
-    #     st.write('Selected restaurant:', selected_r)
+        # Create a restaurant with a dropdown menu
+        selected_r = st.selectbox('Select a restaurant', df.name.tolist())
+        # Display the selected text
+        st.write('Selected restaurant:', selected_r)
         
         
 
@@ -234,34 +235,34 @@ if st.session_state['button'] == True:
 
             st.session_state['button'] = False
 
-#     selected = df[df['name']==selected_r]
-#     # st.dataframe(selected)
+            selected = df[df['name']==selected_r]
+            # st.dataframe(selected)
 
-#     # Foursquare
-#     import requests
+            # Foursquare
+            import requests
 
-#     ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
-#     url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=200&sort=RELEVANCE&limit=1"
-#     headers = {
-#         "accept": "application/json",
-#         "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
-#     }
+            ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
+            url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=200&sort=RELEVANCE&limit=1"
+            headers = {
+                "accept": "application/json",
+                "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
+            }
 
-#     response = requests.get(url, headers=headers)
-#     # st.write(response.json())
-#     #https://location.foursquare.com/developer/reference/place-details
+            response = requests.get(url, headers=headers)
+            # st.write(response.json())
+            #https://location.foursquare.com/developer/reference/place-details
 
-#     # import json
-#     # import pandas as pd
-#     df_fsq = pd.json_normalize(response.json(), 'results')
-#     # df = df.sort_values("distance")
+            # import json
+            # import pandas as pd
+            df_fsq = pd.json_normalize(response.json(), 'results')
+            # df = df.sort_values("distance")
 
-#     def extract_list(json_obj):
-#     # flat_df = pd.json_normalize(json_obj)
-#     # return flat_df['name'].tolist()
-#         return [json['name'] for json in json_obj]
+            def extract_list(json_obj):
+            # flat_df = pd.json_normalize(json_obj)
+            # return flat_df['name'].tolist()
+                return [json['name'] for json in json_obj]
 
-#     # Apply the function to each row in the DataFrame
-#     df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+            # Apply the function to each row in the DataFrame
+            df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
     
 # # '''
