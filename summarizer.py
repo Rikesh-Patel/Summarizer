@@ -209,20 +209,20 @@ if step2:
     df.apply(create_marker, axis=1)
 
     st_map = folium_static(map, width=700, height=450)
-    step3 = 1
 
-if step3:
     # Create a restaurant with a dropdown menu
     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
-    step4 = st.button("Details")
+    step3 = st.button("Details")
 
 
-if step4:
-    selected = df[df['name']==selected_r]
-    # st.dataframe(selected)
+if step3:
+    st.write('cool')
+    
+#     selected = df[df['name']==selected_r]
+#     # st.dataframe(selected)
 
 #     # Foursquare
 #     import requests
