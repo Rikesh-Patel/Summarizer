@@ -89,7 +89,22 @@ else:
   options = []
 
 geolocator = Nominatim(user_agent='my_application')
-button1 = st.button('Check 1')
+
+
+
+
+
+if selected_option:
+    location = geolocator.geocode(selected_option)
+    
+    # Get the latitude and longitude from the location object
+    lat = location.latitude
+    lng = location.longitude
+    
+    # Display the latitude and longitude in the Streamlit app
+    st.write(f'Latitude: {lat}')
+    st.write(f'Longitude: {lng}')
+    button1 = st.button('Check 1')
 
 
 if st.session_state.get('button') != True:
@@ -105,21 +120,6 @@ if st.session_state['button'] == True:
         st.write("Hello, it's working")
 
         st.session_state['button'] = False
-
-
-
-
-if selected_option:
-    location = geolocator.geocode(selected_option)
-    
-    # Get the latitude and longitude from the location object
-    lat = location.latitude
-    lng = location.longitude
-    
-    # Display the latitude and longitude in the Streamlit app
-    st.write(f'Latitude: {lat}')
-    st.write(f'Longitude: {lng}')
-    search = st.button("Search")
 
 if search:
     # Yelp
