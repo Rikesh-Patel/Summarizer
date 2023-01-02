@@ -165,7 +165,7 @@ if step2:
         'distance','location.display_address'])]
     df_display.columns = ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
     df_display = df_display.reindex(columns= ['Name', 'Image', 'Rating','Reviews','Miles','Price', 'Type', 'Transactions', 'Phone', 'Address'] )
-
+    df_display = df_display.iloc[[0,1,4,2,8,6,3,5,7,9]]
     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
     st.write()
     # create a map centered at the average latitude and longitude of the restaurants
@@ -247,7 +247,7 @@ if step4:
 
     import json
     import pandas as pd
-    df = pd.json_normalize(response.json(), 'results')
+    df_fsq = pd.json_normalize(response.json(), 'results')
     # df = df.sort_values("distance")
 
     def extract_list(json_obj):
@@ -256,5 +256,5 @@ if step4:
         return [json['name'] for json in json_obj]
 
     # Apply the function to each row in the DataFrame
-    df['categories'] = df['categories'].apply(extract_list)
-    df
+    df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
+    df_fsq
