@@ -16,25 +16,6 @@ from streamlit_folium import st_folium, folium_static
 
 # Page title and name
 st.set_page_config(page_title='Welp')
-button1 = st.button('Check 1')
-
-
-if st.session_state.get('button') != True:
-
-    st.session_state['button'] = button1
-
-if st.session_state['button'] == True:
-
-    st.write("button1 is True")
-
-    if st.button('Check 2'):
-
-        st.write("Hello, it's working")
-
-        st.session_state['button'] = False
-
-        st.checkbox('Reload')
-
 
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
@@ -82,11 +63,6 @@ step31=0
 
 
 
-
-
-
-
-
 # Create a text input field
 input_text=''
 input_text = st.text_input('Search Bar', input_text)
@@ -113,6 +89,26 @@ else:
   options = []
 
 geolocator = Nominatim(user_agent='my_application')
+button1 = st.button('Check 1')
+
+
+if st.session_state.get('button') != True:
+
+    st.session_state['button'] = button1
+
+if st.session_state['button'] == True:
+
+    st.write("button1 is True")
+
+    if st.button('Check 2'):
+
+        st.write("Hello, it's working")
+
+        st.session_state['button'] = False
+
+        st.checkbox('Reload')
+
+
 
 if selected_option:
     location = geolocator.geocode(selected_option)
