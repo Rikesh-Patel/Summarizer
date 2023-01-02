@@ -160,14 +160,11 @@ if step2:
     # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
     #     'categories', 'rating', 'transactions', 'price', 'display_phone',
     #     'distance','location.display_address'])].columns)
-    df_display = df.loc[:,df.columns.isin(['name', 'image', 'review_count',
-        'categories', 'rating', 'transactions', 'price', 'display_phone',
-        'distance','location.display_address'])]
-    df_display.columns = ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-    df_display = df_display.reindex(columns= ['Name', 'Image', 'Rating','Reviews','Miles','Price', 'Type', 'Transactions', 'Phone', 'Address'] )
-    df_display = df_display.iloc[[0,1,4,2,8,6,3,5,7,9]]
+    df_display = df.loc[:,df.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
+    df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
+    df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
     st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
-    st.write()
+    st.write('')
     # create a map centered at the average latitude and longitude of the restaurants
     map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
 
