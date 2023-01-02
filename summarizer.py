@@ -233,9 +233,9 @@ if step2:
     query = selected['name'][0]
     location = "Culver City California"
     st.dataframe(selected)
-    ll = f"{selected['coordinates.latitude']},{selected['coordinates.longitude'][0]}"
+    ll = f"{selected['coordinates.latitude'][0]},{selected['coordinates.longitude'][0]}"
     st.write(ll)
-    url = f"https://api.foursquare.com/v3/places/search?query={query}&ll={ll}&radius=1000&sort=RELEVANCE&limit=20"
+    url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=1000&sort=RELEVANCE&limit=20"
     headers = {
         "accept": "application/json",
         "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
