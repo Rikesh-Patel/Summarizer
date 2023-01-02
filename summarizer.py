@@ -212,14 +212,14 @@ if step2:
 
     # Create a restaurant with a dropdown menu
     selected_r = st.selectbox('Select a restaurant', df.name.tolist())
-
+    selected_r = df.iloc[0]['name']
     # Display the selected text
     st.write('Selected restaurant:', selected_r)
     
-    step3 = st.button('Details')
+    # step3 = st.button("Details")
 
 
-if step3:
+# if step3:
     st.write('bruh')
 
     # selected = df[df['name']==selected_r]
