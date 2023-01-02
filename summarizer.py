@@ -220,7 +220,7 @@ if step2:
 
 
 # if step3:
-    st.write('bruh')
+
 
     selected = df[df['name']==selected_r]
     # st.dataframe(selected)
@@ -240,7 +240,7 @@ if step2:
     }
 
     response = requests.get(url, headers=headers)
-    response.json()
+    st.write(response.json())
     #https://location.foursquare.com/developer/reference/place-details
 
     # import json
