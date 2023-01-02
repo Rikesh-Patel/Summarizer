@@ -228,8 +228,8 @@ if st.session_state['button'] == True:
 
 
 
-if st.button("Details"):
-    st.write('cool')
+    if st.button("Details"):
+        st.write('cool')
     # st.session_state['button'] = False
 #     selected = df[df['name']==selected_r]
 #     # st.dataframe(selected)
