@@ -114,55 +114,56 @@ if st.session_state.get('button') != True:
 if st.session_state['button'] == True:
     if not search:
         st.session_state['button'] = False
+        st.write("Nothing in search")
     if search:
         st.write("button1 is True")
 
 
     
-    # Yelp
-    # Get Business ID
-    import requests
-    #&latitude=latitude&longitude=longtiude&radius=radius
-    query = "Pizza"
+        # Yelp
+        # Get Business ID
+        import requests
+        #&latitude=latitude&longitude=longtiude&radius=radius
+        query = "Pizza"
 
-    url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
+        url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
 
-    headers = {
-        "accept": "application/json",
-        "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
-    }
+        headers = {
+            "accept": "application/json",
+            "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
+        }
 
-    response = requests.get(url, headers=headers)
-    if 'error' in response.json():
-        print(response.json()['error']['code'])
-    
-    import json
-    import pandas as pd
-    df = pd.json_normalize(response.json(), 'businesses')
-    df = df.sort_values("distance")
-    def extract_list(json_obj):
-        return [json['title'] for json in json_obj]
+        response = requests.get(url, headers=headers)
+        if 'error' in response.json():
+            print(response.json()['error']['code'])
+        
+        import json
+        import pandas as pd
+        df = pd.json_normalize(response.json(), 'businesses')
+        df = df.sort_values("distance")
+        def extract_list(json_obj):
+            return [json['title'] for json in json_obj]
 
-    # Apply the function to each row in the DataFrame
-    df['categories'] = df['categories'].apply(extract_list)
-    # df = df[df['is_closed']=="false"]
-    df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
-    df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
-    df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
-    df['price'] = df['price'].fillna('')
-    df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
-    df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
-    df_display = df.copy()
-    df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
-    df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
+        # Apply the function to each row in the DataFrame
+        df['categories'] = df['categories'].apply(extract_list)
+        # df = df[df['is_closed']=="false"]
+        df['location.display_address'] = df['location.display_address'].apply(lambda l: ', '.join(l))
+        df['transactions'] = df['transactions'].apply(lambda l: ', '.join(l))
+        df['categories'] = df['categories'].apply(lambda l: ', '.join(l))
+        df['price'] = df['price'].fillna('')
+        df[['rating','distance']] = df[['rating','distance']].apply(pd.to_numeric, errors='coerce')
+        df['rating'] =df['rating'].apply(str).str.replace('000','').apply(float)
+        df_display = df.copy()
+        df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
+        df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
 
 
-    df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
-    # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-    #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-    #     'distance', 'coordinates.latitude', 'coordinates.longitude',
-    #     'location.display_address'])]
-    step2=1
+        df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
+        # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
+        #     'categories', 'rating', 'transactions', 'price', 'display_phone',
+        #     'distance', 'coordinates.latitude', 'coordinates.longitude',
+        #     'location.display_address'])]
+        step2=1
         
         
         
