@@ -310,10 +310,10 @@ if selected_option:
 
             # Get top 3 after sorting the list of scoring_data tuples in descending order by the second element of the tuple (the scoring_data value)
             sorted_scoring_data = sorted(result_dict['scoring_data'], key=lambda x: x[1], reverse=True)[:3]
-
+            st.write(sorted_scoring_data)
             # Get the indices of the top 3 summary results
             top_3_indices = [tuple[0] for tuple in sorted_scoring_data]
-
+            st.write(top_3_indices)
             # Get the top 3 summary results
             top_3_results = [result_dict['summarize_result'][index] for index in top_3_indices]
 
