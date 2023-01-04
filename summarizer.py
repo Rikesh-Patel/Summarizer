@@ -232,9 +232,6 @@ if st.session_state['button'] == True:
 
         if st.button('Check 2'):
 
-
-            
-
             selected = df[df['name']==selected_r]
             # st.dataframe(selected)
 
@@ -249,22 +246,50 @@ if st.session_state['button'] == True:
             }
 
             response = requests.get(url, headers=headers)
-            # st.write(response.json())
-            #https://location.foursquare.com/developer/reference/place-details
-
-            # import json
-            # import pandas as pd
             df_fsq = pd.json_normalize(response.json(), 'results')
-            # df = df.sort_values("distance")
 
             def extract_list(json_obj):
-            # flat_df = pd.json_normalize(json_obj)
-            # return flat_df['name'].tolist()
                 return [json['name'] for json in json_obj]
 
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
             st.write(df_fsq)
+
+            def id_reviews(id):
+                url = f"https://api.foursquare.com/v3/places/{id}/tips?limit=50"
+
+                headers = {
+                    "accept": "application/json",
+                    "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
+                }
+
+                response = requests.get(url, headers=headers)
+                return [json['text'] for json in response.json()]
+  
+            texts = id_reviews(df_fsq.iloc[0]['id'])
+
+            corpus = ' '.join(texts)
+            reviews = pd.DataFrame(texts, columns=['text'])
+
+            from textblob import TextBlob
+
+            # Define a function that classifies the sentiment of a review as positive, negative, or neutral
+            def classify_sentiment(review):
+                # Use TextBlob to classify the sentiment of the review
+                sentiment = TextBlob(review).sentiment
+                # Classify the sentiment as positive, negative, or neutral based on the polarity
+                if sentiment.polarity > 0:
+                    return 'positive'
+                elif sentiment.polarity < 0:
+                    return 'negative'
+                else:
+                    return 'neutral'
+            # nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
+            # reviews['sentiment'] =
+            reviews['sentiment'] = reviews['text'].apply(classify_sentiment)
+            reviews
+
+
             st.session_state['button'] = False
     
 # # '''
