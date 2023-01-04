@@ -365,11 +365,10 @@ if selected_option:
                 #make word cloud
                 wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
                 #applies colors from your image mask into your word cloud
-                plt.figure(figsize=(15,8))
-                plt.title(sentiment)
-                plt.axis("off")
-                plt.imshow(wc)
-                st.pyplot()
+                fig = plt.figure(figsize=(15,8))
+                fig.title(sentiment)
+                fig.axis("off")
+                st.pyplot(fig)
 
 
             st.session_state['button'] = False
