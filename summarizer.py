@@ -59,6 +59,7 @@ step2=0
 step3=0
 step4=0
 step31=0
+selected_r = 0
 
 
 
@@ -228,10 +229,10 @@ if selected_option:
        
 
 
-        if st.button('Check 2'):
+        if st.button('Details'):
 
             # selected = df[df['name']==selected_r]
-            selected = "Frankie's Downtown"
+            selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
 
             # Foursquare
