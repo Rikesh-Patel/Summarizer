@@ -367,7 +367,7 @@ if selected_option:
                 #applies colors from your image mask into your word cloud
                 fig = plt.figure(figsize=(15,8))
                 fig.suptitle(sentiment)
-                fig.axis("off")
+                plt.axis("off")
                 st.pyplot(fig)
 
 
