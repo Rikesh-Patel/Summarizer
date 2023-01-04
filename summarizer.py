@@ -290,35 +290,35 @@ if selected_option:
             reviews
             #Summarized Tips
             # !pip3 install pysummarization
-            from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
-            from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
-            from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+            # from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+            # from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+            # from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
 
-            # Object of automatic summarization.
-            auto_abstractor = AutoAbstractor()
-            # Set tokenizer.
-            auto_abstractor.tokenizable_doc = SimpleTokenizer()
-            # Set delimiter for making a list of sentence.
-            auto_abstractor.delimiter_list = ['\n']
+            # # Object of automatic summarization.
+            # auto_abstractor = AutoAbstractor()
+            # # Set tokenizer.
+            # auto_abstractor.tokenizable_doc = SimpleTokenizer()
+            # # Set delimiter for making a list of sentence.
+            # auto_abstractor.delimiter_list = ['\n']
 
-            # Object of abstracting and filtering document.
-            abstractable_doc = TopNRankAbstractor()
-            auto_abstractor.set_top_sentences(4)
-            # abstractable_doc.num_of_sentences = 4
-            # # Summarize document
-            result_dict = auto_abstractor.summarize(corpus, abstractable_doc)
+            # # Object of abstracting and filtering document.
+            # abstractable_doc = TopNRankAbstractor()
+            # auto_abstractor.set_top_sentences(4)
+            # # abstractable_doc.num_of_sentences = 4
+            # # # Summarize document
+            # result_dict = auto_abstractor.summarize(corpus, abstractable_doc)
 
-            # Get top 3 after sorting the list of scoring_data tuples in descending order by the second element of the tuple (the scoring_data value)
-            sorted_scoring_data = sorted(result_dict['scoring_data'], key=lambda x: x[1], reverse=True)
-            st.write(sorted_scoring_data)
-            # Get the indices of the top 3 summary results
-            top_3_indices = [tuple[0] for tuple in sorted_scoring_data]
-            st.write(top_3_indices)
-            st.write(result_dict['summarize_result'])
-            # Get the top 3 summary results
-            top_3_results = [result_dict['summarize_result'][index] for index in top_3_indices]
+            # # Get top 3 after sorting the list of scoring_data tuples in descending order by the second element of the tuple (the scoring_data value)
+            # sorted_scoring_data = sorted(result_dict['scoring_data'], key=lambda x: x[1], reverse=True)
+            # st.write(sorted_scoring_data)
+            # # Get the indices of the top 3 summary results
+            # top_3_indices = [tuple[0] for tuple in sorted_scoring_data]
+            # st.write(top_3_indices)
+            # st.write(result_dict['summarize_result'])
+            # # Get the top 3 summary results
+            # top_3_results = [result_dict['summarize_result'][index] for index in top_3_indices]
 
-            st.write(' '.join(top_3_results))
+            # st.write(' '.join(top_3_results))
             
 
             from nltk.corpus.reader.reviews import ReviewsCorpusReader
