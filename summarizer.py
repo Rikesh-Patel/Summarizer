@@ -288,6 +288,87 @@ if selected_option:
             # reviews['sentiment'] =
             reviews['sentiment'] = reviews['text'].apply(classify_sentiment)
             reviews
+            #Summarized Tips
+            # !pip3 install pysummarization
+            from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
+            from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
+            from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
+
+            # Object of automatic summarization.
+            auto_abstractor = AutoAbstractor()
+            # Set tokenizer.
+            auto_abstractor.tokenizable_doc = SimpleTokenizer()
+            # Set delimiter for making a list of sentence.
+            auto_abstractor.delimiter_list = ['.', '\n']
+
+            # Object of abstracting and filtering document.
+            abstractable_doc = TopNRankAbstractor()
+            auto_abstractor.set_top_sentences(4)
+            # abstractable_doc.num_of_sentences = 4
+            # # Summarize document
+            result_dict = auto_abstractor.summarize(corpus, abstractable_doc)
+
+            # Get top 3 after sorting the list of scoring_data tuples in descending order by the second element of the tuple (the scoring_data value)
+            sorted_scoring_data = sorted(result_dict['scoring_data'], key=lambda x: x[1], reverse=True)[:3]
+
+            # Get the indices of the top 3 summary results
+            top_3_indices = [tuple[0] for tuple in sorted_scoring_data]
+
+            # Get the top 3 summary results
+            top_3_results = [result_dict['summarize_result'][index] for index in top_3_indices]
+
+            st.write(' '.join(top_3_results))
+            
+
+            from nltk.corpus.reader.reviews import ReviewsCorpusReader
+            #Emotion 
+            from wordcloud import WordCloud
+            import nltk
+            import re
+            from nltk.corpus import stopwords
+            from nltk.stem import SnowballStemmer
+            from nltk.stem import WordNetLemmatizer
+            from string import punctuation
+            # from autocorrect import spell
+            from matplotlib import pyplot as plt
+            import nltk
+            # nltk.download('stopwords')
+            # nltk.download('punkt')
+            # nltk.download('wordnet')
+            # nltk.download('omw-1.4')
+            # !pip3 install nrclex
+            import spacy
+            from nltk.corpus import stopwords
+            from nltk.tokenize import sent_tokenize, word_tokenize, RegexpTokenizer 
+            # from nltk.stem import PorterStemmer, LancasterStemmer
+            # # from sklearn.feature_extraction.text import CountVectorizer
+            # from sklearn.feature_extraction.text import TfidfTransformer,TfidfVectorizer
+            import gensim
+            import numpy as np
+            import seaborn as sns
+
+            tokenizer = RegexpTokenizer(r'\w+')
+            for sentiment in ['positive', 'neutral', 'negative']:
+                sentiment_corpus = ' '.join(reviews[reviews['sentiment'] == sentiment]['text'])
+                if sentiment_corpus == '':
+                    break
+                sentiment_text = sentiment_corpus.lower()
+                cleaned_text = re.sub('\W', ' ', sentiment_text)
+                stopword = stopwords.words("english")
+                wnl = WordNetLemmatizer()
+                snowball_stemmer = SnowballStemmer("english")
+                word_tokens = nltk.word_tokenize(cleaned_text)
+                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous')) else  snowball_stemmer.stem(word) for word in word_tokens]
+                processed_text = [word for word in stemmed_word if word not in stopword]
+                text_string=(" ").join(processed_text)
+                #make word cloud
+                wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
+                #applies colors from your image mask into your word cloud
+                plt.figure(figsize=(15,8))
+                plt.title(sentiment)
+                plt.axis("off")
+                plt.imshow(wc)
+                st.pyplot()
 
 
             st.session_state['button'] = False
