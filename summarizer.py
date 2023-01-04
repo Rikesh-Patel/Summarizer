@@ -333,10 +333,10 @@ if selected_option:
             # from autocorrect import spell
             from matplotlib import pyplot as plt
             import nltk
-            # nltk.download('stopwords')
-            # nltk.download('punkt')
-            # nltk.download('wordnet')
-            # nltk.download('omw-1.4')
+            nltk.download('stopwords')
+            nltk.download('punkt')
+            nltk.download('wordnet')
+            nltk.download('omw-1.4')
             # !pip3 install nrclex
             import spacy
             from nltk.corpus import stopwords
