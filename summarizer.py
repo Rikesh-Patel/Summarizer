@@ -314,6 +314,7 @@ if selected_option:
             # Get the indices of the top 3 summary results
             top_3_indices = [tuple[0] for tuple in sorted_scoring_data]
             st.write(top_3_indices)
+            st.write(result_dict['summarize_result'])
             # Get the top 3 summary results
             top_3_results = [result_dict['summarize_result'][index] for index in top_3_indices]
 
