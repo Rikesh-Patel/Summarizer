@@ -268,7 +268,7 @@ if selected_option:
   
             texts = id_reviews(df_fsq.iloc[0]['fsq_id'])
 
-            corpus = ' '.join(texts)
+            corpus = '\n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
 
             from textblob import TextBlob
