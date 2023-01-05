@@ -268,7 +268,7 @@ if selected_option:
   
             texts = id_reviews(df_fsq.iloc[0]['fsq_id'])
 
-            corpus = '\n'.join(texts)
+            corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
 
             from textblob import TextBlob
@@ -366,10 +366,13 @@ if selected_option:
                 #make word cloud
                 wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
                 #applies colors from your image mask into your word cloud
-                fig = plt.figure(figsize=(15,8))
-                fig.suptitle(sentiment)
-                plt.axis("off")
+                # fig = plt.figure(figsize=(15,8))
+                st.pyplot(wc)
+                ax = plt.gca()
+                ax.set_title(sentiment)
+                ax.axis("off")
                 st.pyplot()
+                
 
             st.header("All Reviews")
             st.write(corpus)
