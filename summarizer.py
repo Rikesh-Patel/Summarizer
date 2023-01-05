@@ -371,7 +371,7 @@ if selected_option:
                 plt.title(sentiment)
                 plt.axis("off")
                 plt.imshow(wc)
-                st.pyplot()
+                st.pyplot(fig)
                 
 
             st.header("All Reviews")
