@@ -369,8 +369,8 @@ if selected_option:
                 # fig = plt.figure(figsize=(15,8))
                 fig = plt.figure(figsize=(15,8))
                 plt.title(sentiment)
-                fig.axis("off")
-                fig.imshow(wc)
+                plt.axis("off")
+                plt.imshow(wc)
                 st.pyplot()
                 
 
