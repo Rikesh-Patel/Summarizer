@@ -288,6 +288,7 @@ if selected_option:
             # reviews['sentiment'] =
             reviews['sentiment'] = reviews['text'].apply(classify_sentiment)
             reviews
+            
             #Summarized Tips
             # !pip3 install pysummarization
             # from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
@@ -368,9 +369,10 @@ if selected_option:
                 fig = plt.figure(figsize=(15,8))
                 fig.suptitle(sentiment)
                 plt.axis("off")
-                st.pyplot(fig)
+                st.pyplot()
 
-
+            st.header("All Reviews")
+            st.write(corpus)
             st.session_state['button'] = False
     
 # # '''
