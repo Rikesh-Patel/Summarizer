@@ -367,10 +367,10 @@ if selected_option:
                 wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
                 #applies colors from your image mask into your word cloud
                 # fig = plt.figure(figsize=(15,8))
-                st.pyplot(wc)
-                ax = plt.gca()
-                ax.set_title(sentiment)
-                ax.axis("off")
+                fig = plt.figure(figsize=(15,8))
+                fig.set_title(sentiment)
+                fig.axis("off")
+                fig.imshow(wc)
                 st.pyplot()
                 
 
