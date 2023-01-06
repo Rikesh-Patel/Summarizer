@@ -237,8 +237,8 @@ if st.session_state['button'] == True:
 
             # Foursquare
             import requests
-            ll = "32.7805,-96.8009"
-            # ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
+            # ll = "32.7805,-96.8009"
+            ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
             url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=200&sort=RELEVANCE&limit=1"
             headers = {
                 "accept": "application/json",
