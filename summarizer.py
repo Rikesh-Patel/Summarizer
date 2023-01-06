@@ -416,7 +416,6 @@ if selected_option:
                 for open_hour in open_hours:
                     if open_hour['day'] == day_of_week:
                         st.write( f"Open today until {open_hour['end']}")
-                        st.write()
 
             # The business is not open now, so find the next available open time slot
                 
@@ -433,7 +432,7 @@ if selected_option:
                     st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
             # No open hours in the future were found, so return None
             st.write()
-            if hours_info['special_hours']:
+            if 'special_hours' in hours_info:
                 for special in hours_info['special_hours']:
                     if special['is_closed']:
                         st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
