@@ -231,7 +231,7 @@ if st.session_state['button'] == True:
 
         if st.button('Details'):
 
-            # selected = df[df['name']==selected_r]
+            selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
 
