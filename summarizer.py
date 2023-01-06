@@ -419,7 +419,7 @@ if st.session_state['button'] == True:
 
             # The business is not open now, so find the next available open time slot
                 
-
+            st.write(hours_info)
             open_hours = hours_info['hours'][0]['open']
             for open_hour in open_hours:
                 if open_hour['day'] >= day_of_week:
