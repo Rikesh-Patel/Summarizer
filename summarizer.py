@@ -407,7 +407,8 @@ if selected_option:
 
             # Get the current minute
             minute = now.minute
-
+            st.write("")
+            st.header("Schedule")
             # Check if the business is open now
             if hours_info['hours'][0]['is_open_now']:
             # The business is open now, so return the current open hours
@@ -432,9 +433,10 @@ if selected_option:
                     st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
             # No open hours in the future were found, so return None
             st.write()
-            for special in hours_info['special_hours']:
-                if special['is_closed']:
-                    st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
+            if hours_info['special_hours']:
+                for special in hours_info['special_hours']:
+                    if special['is_closed']:
+                        st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
 
             st.session_state['button'] = False
     
