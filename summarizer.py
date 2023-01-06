@@ -66,7 +66,8 @@ selected_r = 0
 
 # Create a text input field
 input_text=''
-input_text = st.text_input('Search Bar', input_text)
+searchword = st.text_input('Search Bar', input_text)
+input_text = st.text_input('Location', input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -102,9 +103,9 @@ if selected_option:
     lat = location.latitude
     lng = location.longitude
     
-#     # Display the latitude and longitude in the Streamlit app
-#     st.write(f'Latitude: {lat}')
-#     st.write(f'Longitude: {lng}')
+    # # Display the latitude and longitude in the Streamlit app
+    # st.write(f'Latitude: {lat}')
+    # st.write(f'Longitude: {lng}')
    
 
 
@@ -123,9 +124,8 @@ if st.session_state['button'] == True:
         # Get Business ID
         import requests
         #&latitude=latitude&longitude=longtiude&radius=radius
-        query = "Pizza"
 
-        url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={query}&categories=&sort_by=best_match&limit=20"
+        url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={searchword}&categories=&sort_by=best_match&limit=20"
 
         headers = {
             "accept": "application/json",
@@ -232,7 +232,7 @@ if st.session_state['button'] == True:
         if st.button('Details'):
 
             # selected = df[df['name']==selected_r]
-            selected_r = "Frankie's Downtown"
+            # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
 
             # Foursquare
@@ -265,8 +265,8 @@ if st.session_state['button'] == True:
 
                 response = requests.get(url, headers=headers)
                 return [json['text'] for json in response.json()]
-  
-            texts = id_reviews(df_fsq.iloc[0]['fsq_id'])
+            fsq_id = df_fsq.iloc[0]['fsq_id']
+            texts = id_reviews(fsq_id)
 
             corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
@@ -380,7 +380,7 @@ if st.session_state['button'] == True:
             # Get details
             import requests
 
-            url = "https://api.yelp.com/v3/businesses/ztllNH_Zj-LEo9UFyD3vlQ"
+            url = f"https://api.yelp.com/v3/businesses/{fsq_id}"
 
             headers = {
                 "accept": "application/json",
