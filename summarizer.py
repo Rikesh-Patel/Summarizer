@@ -395,7 +395,7 @@ if st.session_state['button'] == True:
             import dateutil.parser
 
             hours_info = response.json()
-            if not 'error' in hours_info
+            if not 'error' in hours_info:
                 # Get the current time
                 now = datetime.datetime.now()
 
