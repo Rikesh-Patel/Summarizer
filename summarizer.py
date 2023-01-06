@@ -410,7 +410,7 @@ if st.session_state['button'] == True:
             st.write("")
             st.header("Schedule")
             # Check if the business is open now
-            if hours_info['hours'][0]['is_open_now']:
+            if 'is_open_now' in hours_info['hours'][0]:
             # The business is open now, so return the current open hours
                 open_hours = hours_info['hours'][0]['open']
                 for open_hour in open_hours:
