@@ -253,7 +253,7 @@ if selected_option:
 
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
-            st.write(df_fsq)
+            
 
             def id_reviews(id):
                 url = f"https://api.foursquare.com/v3/places/{id}/tips?limit=50"
@@ -287,7 +287,7 @@ if selected_option:
             # nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
             # reviews['sentiment'] =
             reviews['sentiment'] = reviews['text'].apply(classify_sentiment)
-            reviews
+            
             
             #Summarized Tips
             # !pip3 install pysummarization
@@ -376,6 +376,66 @@ if selected_option:
 
             st.header("All Reviews")
             st.write(corpus)
+
+            # Get details
+            import requests
+
+            url = "https://api.yelp.com/v3/businesses/ztllNH_Zj-LEo9UFyD3vlQ"
+
+            headers = {
+                "accept": "application/json",
+                "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
+            }
+
+            response = requests.get(url, headers=headers)
+
+            # Next open time
+            import calendar
+            import datetime
+            import dateutil.parser
+
+            hours_info = response.json()
+
+            # Get the current time
+            now = datetime.datetime.now()
+
+            # Get the current day of the week (0 = Monday, 1 = Tuesday, etc.)
+            day_of_week = now.weekday()
+
+            # Get the current hour (in 24-hour format)
+            hour = now.hour
+
+            # Get the current minute
+            minute = now.minute
+
+            # Check if the business is open now
+            if hours_info['hours'][0]['is_open_now']:
+            # The business is open now, so return the current open hours
+            open_hours = hours_info['hours'][0]['open']
+            for open_hour in open_hours:
+                if open_hour['day'] == day_of_week:
+                st.write( f"Open today until {open_hour['end']}")
+                st.write()
+
+            # The business is not open now, so find the next available open time slot
+                
+
+            open_hours = hours_info['hours'][0]['open']
+            for open_hour in open_hours:
+            if open_hour['day'] >= day_of_week:
+                # This open hour is in the future, so return it
+
+                st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
+            for open_hour in open_hours:
+            if open_hour['day'] < day_of_week:
+                # This open hour is in the future, so return it
+                st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
+            # No open hours in the future were found, so return None
+            st.write()
+            for special in hours_info['special_hours']:
+            if special['is_closed']:
+                st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
+
             st.session_state['button'] = False
     
 # # '''
