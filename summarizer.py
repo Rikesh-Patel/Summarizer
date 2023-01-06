@@ -411,30 +411,30 @@ if selected_option:
             # Check if the business is open now
             if hours_info['hours'][0]['is_open_now']:
             # The business is open now, so return the current open hours
-            open_hours = hours_info['hours'][0]['open']
+                open_hours = hours_info['hours'][0]['open']
             for open_hour in open_hours:
                 if open_hour['day'] == day_of_week:
-                st.write( f"Open today until {open_hour['end']}")
-                st.write()
+                    st.write( f"Open today until {open_hour['end']}")
+                    st.write()
 
             # The business is not open now, so find the next available open time slot
                 
 
             open_hours = hours_info['hours'][0]['open']
             for open_hour in open_hours:
-            if open_hour['day'] >= day_of_week:
-                # This open hour is in the future, so return it
+                if open_hour['day'] >= day_of_week:
+                    # This open hour is in the future, so return it
 
-                st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
+                    st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
             for open_hour in open_hours:
-            if open_hour['day'] < day_of_week:
-                # This open hour is in the future, so return it
-                st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
+                if open_hour['day'] < day_of_week:
+                    # This open hour is in the future, so return it
+                    st.write( f"Open on {calendar.day_name[open_hour['day']]} at {open_hour['start']} to {open_hour['end']}")
             # No open hours in the future were found, so return None
             st.write()
             for special in hours_info['special_hours']:
-            if special['is_closed']:
-                st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
+                if special['is_closed']:
+                    st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
 
             st.session_state['button'] = False
     
