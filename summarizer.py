@@ -412,10 +412,10 @@ if selected_option:
             if hours_info['hours'][0]['is_open_now']:
             # The business is open now, so return the current open hours
                 open_hours = hours_info['hours'][0]['open']
-            for open_hour in open_hours:
-                if open_hour['day'] == day_of_week:
-                    st.write( f"Open today until {open_hour['end']}")
-                    st.write()
+                for open_hour in open_hours:
+                    if open_hour['day'] == day_of_week:
+                        st.write( f"Open today until {open_hour['end']}")
+                        st.write()
 
             # The business is not open now, so find the next available open time slot
                 
