@@ -234,7 +234,7 @@ if st.session_state['button'] == True:
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
-
+            y_id = selected.iloc[0]['id']
             # Foursquare
             import requests
             # ll = "32.7805,-96.8009"
@@ -373,14 +373,14 @@ if st.session_state['button'] == True:
                 plt.imshow(wc)
                 st.pyplot(fig)
                 
-
-            st.header("All Reviews")
+            if corpus:
+                st.header("All Reviews")
             st.write(corpus)
 
             # Get details
             import requests
 
-            url = f"https://api.yelp.com/v3/businesses/{fsq_id}"
+            url = f"https://api.yelp.com/v3/businesses/{y_id}"
 
             headers = {
                 "accept": "application/json",
