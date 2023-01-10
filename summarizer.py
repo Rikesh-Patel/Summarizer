@@ -235,7 +235,7 @@ if st.session_state['button'] == True:
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
-
+            y_id = selected.iloc[0]['id']
             # Foursquare
             import requests
             # ll = "32.7805,-96.8009"
@@ -245,7 +245,7 @@ if st.session_state['button'] == True:
                 "accept": "application/json",
                 "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
             }
-            y_id = selected.iloc[0]['id']
+
             response = requests.get(url, headers=headers)
             df_fsq = pd.json_normalize(response.json(), 'results')
 
@@ -268,7 +268,7 @@ if st.session_state['button'] == True:
                 return [json['text'] for json in response.json()]
             fsq_id = df_fsq.iloc[0]['fsq_id']
             texts = id_reviews(fsq_id)
-            st.write(texts)
+
             corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
 
