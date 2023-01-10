@@ -379,7 +379,7 @@ if st.session_state['button'] == True:
 
             st.header("All Reviews")
             st.write(corpus)
-
+'''
             # Get details
             import requests
 
