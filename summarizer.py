@@ -15,6 +15,7 @@ from streamlit_folium import st_folium, folium_static
 #nltk.download('omw-1.4')
 
 # Page title and name
+tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
 st.set_page_config(page_title='Welp')
 
 st.markdown("""
@@ -62,7 +63,7 @@ step31=0
 selected_r = 0
 
 
-
+with tab1:
 
 # Create a text input field
 input_text=''
@@ -244,7 +245,7 @@ if st.session_state['button'] == True:
                 "accept": "application/json",
                 "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
             }
-
+            y_id = selected.iloc[0]['id']
             response = requests.get(url, headers=headers)
             df_fsq = pd.json_normalize(response.json(), 'results')
 
@@ -265,8 +266,8 @@ if st.session_state['button'] == True:
 
                 response = requests.get(url, headers=headers)
                 return [json['text'] for json in response.json()]
-            fsq_id = df_fsq.iloc[0]['fsq_id']
-            texts = id_reviews(fsq_id)
+            
+            texts = id_reviews(df_fsq.iloc[0]['fsq_id'])
 
             corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
@@ -380,7 +381,7 @@ if st.session_state['button'] == True:
             # Get details
             import requests
 
-            url = f"https://api.yelp.com/v3/businesses/{fsq_id}"
+            url = f"https://api.yelp.com/v3/businesses/{y_id}"
 
             headers = {
                 "accept": "application/json",
