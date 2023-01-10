@@ -266,8 +266,8 @@ if st.session_state['button'] == True:
 
                 response = requests.get(url, headers=headers)
                 return [json['text'] for json in response.json()]
-            
-            texts = id_reviews(df_fsq.iloc[0]['fsq_id'])
+            fsq_id = df_fsq.iloc[0]['fsq_id']
+            texts = id_reviews(fsq_id)
             st.write(texts)
             corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
