@@ -15,7 +15,7 @@ from streamlit_folium import st_folium, folium_static
 #nltk.download('omw-1.4')
 
 # Page title and name
-tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
+# tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
 st.set_page_config(page_title='Welp')
 
 st.markdown("""
