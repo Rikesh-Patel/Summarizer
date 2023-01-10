@@ -235,7 +235,7 @@ if st.session_state['button'] == True:
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
-            y_id = selected.iloc[0]['id']
+            # y_id = selected.iloc[0]['id']
             # Foursquare
             import requests
             # ll = "32.7805,-96.8009"
