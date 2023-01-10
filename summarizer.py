@@ -15,7 +15,6 @@ from streamlit_folium import st_folium, folium_static
 #nltk.download('omw-1.4')
 
 # Page title and name
-# tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
 st.set_page_config(page_title='Welp')
 
 st.markdown("""
@@ -63,7 +62,7 @@ step31=0
 selected_r = 0
 
 
-# with tab1:
+
 
 # Create a text input field
 input_text=''
@@ -235,8 +234,7 @@ if st.session_state['button'] == True:
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
-            y_id = selected.iloc[0]['id']
-            st.write(y_id)
+
             # Foursquare
             import requests
             # ll = "32.7805,-96.8009"
@@ -268,7 +266,6 @@ if st.session_state['button'] == True:
                 response = requests.get(url, headers=headers)
                 return [json['text'] for json in response.json()]
             fsq_id = df_fsq.iloc[0]['fsq_id']
-            st.write(fsq_id)
             texts = id_reviews(fsq_id)
 
             corpus = '  \n'.join(texts)
@@ -379,11 +376,11 @@ if st.session_state['button'] == True:
 
             st.header("All Reviews")
             st.write(corpus)
-'''
+
             # Get details
             import requests
 
-            url = f"https://api.yelp.com/v3/businesses/{y_id}"
+            url = f"https://api.yelp.com/v3/businesses/{fsq_id}"
 
             headers = {
                 "accept": "application/json",
