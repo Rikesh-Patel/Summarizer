@@ -7,12 +7,12 @@ import requests
 from geopy.geocoders import Nominatim
 import json
 import folium
-import nltk
 from streamlit_folium import st_folium, folium_static
 
-# Page title and name
-st.set_page_config(page_title='Welp')
+# Page title and layout
+st.set_page_config(layout="wide", page_title='Welp')
 
+# Add caption and watermark
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
         Welp: Reviews and Ratings
@@ -50,17 +50,7 @@ def set_bg(png_file):
 set_bg('assets/background.png')
 
 
-search=0
-step2=0
-step3=0
-step4=0
-step31=0
-selected_r = 0
-
-
-
-
-# Create a text input field
+# Create text input fields
 input_text=''
 searchword = st.text_input('Search Bar', input_text)
 input_text = st.text_input('Location', input_text)
@@ -77,9 +67,7 @@ def autocomplete_geolocation(query):
     response = requests.get(url, params=params)
     return response.json()
 
-
-
-# Update the options of the radio buttons based on the text input
+# Update the autocomplete options of the radio buttons based on the text input
 if input_text:
   options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
   selected_option = st.radio('', options)
@@ -88,10 +76,9 @@ else:
 
 geolocator = Nominatim(user_agent='my_application')
 
-
-
 button1 = st.button('Search')
 
+# Get location of selected radio button
 if selected_option:
     location = geolocator.geocode(selected_option)
     
@@ -104,7 +91,7 @@ if selected_option:
     # st.write(f'Longitude: {lng}')
    
 
-
+# Nested Streamlit buttons
 if st.session_state.get('button') != True:
 
     st.session_state['button'] = button1
@@ -113,32 +100,27 @@ if st.session_state['button'] == True:
     if not selected_option:
         st.session_state['button'] = False
         st.write("Nothing in search")
-    if selected_option:
 
-    
+    if selected_option:
         # Yelp
         # Get Business ID
-        import requests
-        #&latitude=latitude&longitude=longtiude&radius=radius
-
         url = f"https://api.yelp.com/v3/businesses/search?latitude={lat}&longitude={lng}&term={searchword}&categories=&sort_by=best_match&limit=20"
-
         headers = {
             "accept": "application/json",
             "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
         }
 
         response = requests.get(url, headers=headers)
+        # Error if request fails
         if 'error' in response.json():
             print(response.json()['error']['code'])
         
-        import json
-        import pandas as pd
+        # Cleaning Dataset
+
         df = pd.json_normalize(response.json(), 'businesses')
         df = df.sort_values("distance")
         def extract_list(json_obj):
             return [json['title'] for json in json_obj]
-
         # Apply the function to each row in the DataFrame
         df['categories'] = df['categories'].apply(extract_list)
         # df = df[df['is_closed']=="false"]
@@ -151,33 +133,16 @@ if st.session_state['button'] == True:
         df_display = df.copy()
         df_display['distance'] = np.round(0.000621371192*df_display['distance'].astype(float), decimals = 2)
         df_display['name']= df_display.apply(lambda row: f'<a target="_blank" href="{row["url"]}"> {row["name"]}</a>', axis=1)
-
-
         df_display['image'] = df_display.apply(lambda row: f'<img src="{row["image_url"]}" width="60"', axis=1)
-        # df = df.loc[:,df.columns.isin(['id', 'name', 'image_url', 'is_closed', 'url', 'review_count',
-        #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-        #     'distance', 'coordinates.latitude', 'coordinates.longitude',
-        #     'location.display_address'])]
-
-        # Allow the user to sort the data based on any column
-        # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
-        #     'categories', 'rating', 'transactions', 'price', 'display_phone',
-        #     'distance','location.display_address'])].columns)
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
         st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
         st.write('')
-        # create a map centered at the average latitude and longitude of the restaurants
+
+        # Create a map centered at the average latitude and longitude of the restaurants
         map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
-
-
-
-
-
-
-
-
+        # Current Location marker
         folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
         def get_color(value):
@@ -187,8 +152,6 @@ if st.session_state['button'] == True:
             g = int(255 * value)
             b = 0
             return f'#{r:02x}{g:02x}{b:02x}'
-
-        # add a marker for each restaurant
 
         def create_marker(row):
             # Create a marker at the latitude and longitude specified in the row
@@ -208,9 +171,10 @@ if st.session_state['button'] == True:
             ))
             return marker.add_to(map)
 
-
+        # Add a marker for each restaurant
         df.apply(create_marker, axis=1)
 
+        # Create map
         st_map = folium_static(map, width=700, height=450)
 
         # Create a restaurant with a dropdown menu
@@ -222,13 +186,9 @@ if st.session_state['button'] == True:
 
         if st.button('Details'):
             selected = df[df['name']==selected_r]
-            # selected_r = "Frankie's Downtown"
-            # st.dataframe(selected)
             y_id = selected.iloc[0]['id']
-            # Foursquare
-            import requests
-            # ll = "32.7805,-96.8009"
             ll = f"{selected.iloc[0]['coordinates.latitude']},{selected.iloc[0]['coordinates.longitude']}"
+            
             url = f"https://api.foursquare.com/v3/places/search?query={selected_r}&ll={ll}&radius=200&sort=RELEVANCE&limit=1"
             headers = {
                 "accept": "application/json",
@@ -236,32 +196,29 @@ if st.session_state['button'] == True:
             }
 
             response = requests.get(url, headers=headers)
-            df_fsq = pd.json_normalize(response.json(), 'results')
+            
+            # Cleaning Dataset
 
+            df_fsq = pd.json_normalize(response.json(), 'results')
             def extract_list(json_obj):
                 return [json['name'] for json in json_obj]
-
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
             @st.cache
             def id_reviews(id):
                 url = f"https://api.foursquare.com/v3/places/{id}/tips?limit=50"
-
                 headers = {
                     "accept": "application/json",
                     "Authorization": "fsq3FRAOl0xYdG0DAHJpfsoq8kcnDmt3JiiV08t5Cpcyj6g="
                 }
-
                 response = requests.get(url, headers=headers)
                 return [json['text'] for json in response.json()]
             fsq_id = df_fsq.iloc[0]['fsq_id']
             texts = id_reviews(fsq_id)
-
             corpus = '  \n'.join(texts)
             reviews = pd.DataFrame(texts, columns=['text'])
 
             from textblob import TextBlob
-
             # Define a function that classifies the sentiment of a review as positive, negative, or neutral
             def classify_sentiment(review):
                 # Use TextBlob to classify the sentiment of the review
@@ -274,12 +231,10 @@ if st.session_state['button'] == True:
                 else:
                     return 'neutral'
             # nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
-            # reviews['sentiment'] =
             reviews['sentiment'] = reviews['text'].apply(classify_sentiment)
             
             
             #Summarized Tips
-            # !pip3 install pysummarization
             # from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
             # from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
             # from pysummarization.abstractabledoc.top_n_rank_abstractor import TopNRankAbstractor
@@ -320,7 +275,6 @@ if st.session_state['button'] == True:
             from nltk.stem import SnowballStemmer
             from nltk.stem import WordNetLemmatizer
             from string import punctuation
-            # from autocorrect import spell
             from matplotlib import pyplot as plt
             import nltk
             nltk.download('stopwords')
@@ -349,13 +303,12 @@ if st.session_state['button'] == True:
                 wnl = WordNetLemmatizer()
                 snowball_stemmer = SnowballStemmer("english")
                 word_tokens = nltk.word_tokenize(cleaned_text)
-                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous')) else  snowball_stemmer.stem(word) for word in word_tokens]
+                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous', 'y')) else  snowball_stemmer.stem(word) for word in word_tokens]
                 processed_text = [word for word in stemmed_word if word not in stopword]
                 text_string=(" ").join(processed_text)
-                #make word cloud
+                # Make word cloud
                 wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
-                #applies colors from your image mask into your word cloud
-                # fig = plt.figure(figsize=(15,8))
+                # Applies colors from your image mask into your word cloud
                 fig = plt.figure(figsize=(15,8))
                 plt.title(sentiment)
                 plt.axis("off")
@@ -370,7 +323,6 @@ if st.session_state['button'] == True:
             import requests
 
             url = f"https://api.yelp.com/v3/businesses/{y_id}"
-
             headers = {
                 "accept": "application/json",
                 "Authorization": "Bearer A_1nx-eEZxP4IQ-fT7r32jAHjBIU1gQqNzMM5hkc-XGtQFSbeRJr5FNXyXxVBsEA7z5r47W_7rGMK6-hc2OkoUJE_bpgtZ4Oq2zndySrIjBCvS0kH2EWcmxSyx2fY3Yx"
@@ -429,4 +381,3 @@ if st.session_state['button'] == True:
 
             # st.session_state['button'] = False
     
-# # '''
