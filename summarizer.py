@@ -224,8 +224,7 @@ if st.session_state['button'] == True:
 
         # Create a restaurant with a dropdown menu
         selected_r = st.selectbox('Select a restaurant', df.name.tolist())
-        # Display the selected text
-        st.write('Selected restaurant:', selected_r)
+
         
        
 
