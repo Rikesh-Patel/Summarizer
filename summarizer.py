@@ -16,7 +16,7 @@ from streamlit_folium import st_folium, folium_static
 
 # Page title and name
 st.set_page_config(page_title='Welp')
-@st.cache
+
 st.markdown("""
         <h1 style='text-align: center; color: #FFFFFF; margin-bottom: -30px;'>
         Welp: Reviews and Ratings
@@ -175,6 +175,7 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
+        @st.cache
         st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
         st.write('')
         # create a map centered at the average latitude and longitude of the restaurants
@@ -228,9 +229,9 @@ if st.session_state['button'] == True:
         
        
 
-
+        @st.cache
         if st.button('Details'):
-
+            @st.cache
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
