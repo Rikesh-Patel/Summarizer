@@ -10,7 +10,7 @@ import folium
 from streamlit_folium import st_folium, folium_static
 
 # Page title and layout
-st.set_page_config(layout="wide", page_title='Welp')
+st.set_page_config(layout="centered", page_title='Welp')
 
 # Add caption and watermark
 st.markdown("""
