@@ -175,7 +175,6 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        @st.cache
         st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
         st.write('')
         # create a map centered at the average latitude and longitude of the restaurants
@@ -199,6 +198,7 @@ if st.session_state['button'] == True:
             return f'#{r:02x}{g:02x}{b:02x}'
 
         # add a marker for each restaurant
+        @st.cache
         def create_marker(row):
             # Create a marker at the latitude and longitude specified in the row
             marker = folium.Marker( location=[row['coordinates.latitude'], 
@@ -229,9 +229,7 @@ if st.session_state['button'] == True:
         
        
 
-        @st.cache
         if st.button('Details'):
-            @st.cache
             selected = df[df['name']==selected_r]
             # selected_r = "Frankie's Downtown"
             # st.dataframe(selected)
@@ -255,7 +253,7 @@ if st.session_state['button'] == True:
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
             
-
+            @st.cache
             def id_reviews(id):
                 url = f"https://api.foursquare.com/v3/places/{id}/tips?limit=50"
 
