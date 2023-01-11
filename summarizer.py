@@ -162,12 +162,7 @@ if st.session_state['button'] == True:
         #     'categories', 'rating', 'transactions', 'price', 'display_phone',
         #     'distance', 'coordinates.latitude', 'coordinates.longitude',
         #     'location.display_address'])]
-        step2=1
-        
-        
-        
 
-    if step2:
         # Allow the user to sort the data based on any column
         # sort_column = st.selectbox('Sort by column', df.loc[:,df.columns.isin(['name', 'url', 'review_count',
         #     'categories', 'rating', 'transactions', 'price', 'display_phone',
@@ -224,7 +219,8 @@ if st.session_state['button'] == True:
 
         # Create a restaurant with a dropdown menu
         selected_r = st.selectbox('Select a restaurant', df.name.tolist())
-
+        # Display the selected text
+        st.write('Selected restaurant:', selected_r)
         
        
 
@@ -435,6 +431,6 @@ if st.session_state['button'] == True:
                         if special['is_closed']:
                             st.write(f"Closed on {dateutil.parser.parse(special['date']).strftime('%A %m/%d')}")
 
-            st.session_state['button'] = False
+            # st.session_state['button'] = False
     
 # # '''
