@@ -317,7 +317,7 @@ if st.session_state['button'] == True:
                 
             if corpus:
                 st.header("All Reviews")
-            corpus
+            st.text(corpus)
 
             # Get details
             import requests
