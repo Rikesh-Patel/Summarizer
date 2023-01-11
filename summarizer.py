@@ -9,10 +9,6 @@ import json
 import folium
 import nltk
 from streamlit_folium import st_folium, folium_static
-#nltk.download('stopwords')
-#nltk.download('punkt')
-#nltk.download('wordnet')
-#nltk.download('omw-1.4')
 
 # Page title and name
 st.set_page_config(page_title='Welp')
@@ -368,7 +364,7 @@ if st.session_state['button'] == True:
                 
             if corpus:
                 st.header("All Reviews")
-            st.write(corpus)
+            corpus
 
             # Get details
             import requests
