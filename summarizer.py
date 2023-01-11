@@ -317,7 +317,7 @@ if st.session_state['button'] == True:
                 
             if corpus:
                 st.header("All Reviews")
-            st.caption(corpus.replace("$", "\$"), unsafe_allow_html=False)
+            st.write(corpus.replace("$", "\$"), unsafe_allow_html=False)
 
             # Get details
             import requests
