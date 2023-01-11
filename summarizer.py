@@ -198,7 +198,7 @@ if st.session_state['button'] == True:
             return f'#{r:02x}{g:02x}{b:02x}'
 
         # add a marker for each restaurant
-        @st.cache
+
         def create_marker(row):
             # Create a marker at the latitude and longitude specified in the row
             marker = folium.Marker( location=[row['coordinates.latitude'], 
@@ -252,7 +252,6 @@ if st.session_state['button'] == True:
 
             # Apply the function to each row in the DataFrame
             df_fsq['categories'] = df_fsq['categories'].apply(extract_list)
-            
             @st.cache
             def id_reviews(id):
                 url = f"https://api.foursquare.com/v3/places/{id}/tips?limit=50"
