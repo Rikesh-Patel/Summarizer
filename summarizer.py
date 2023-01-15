@@ -300,11 +300,11 @@ if st.session_state['button'] == True:
                 **kwargs):
                 hue = np.random.randint(low=0, high=360)
     
-                if sentiment == 'positive':
-                    return "hsl(100, %d%, 50)" % random.randint(60, 100)
-                if sentiment == 'neutral':
-                    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
-                if sentiment == 'negative':
+                # if sentiment == 'positive':
+                #     return "hsl(100, %d%, 50)" % random.randint(60, 100)
+                # if sentiment == 'neutral':
+                #     return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+                # if sentiment == 'negative':
                     return "hsl(%d%, 100%%, 50)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
