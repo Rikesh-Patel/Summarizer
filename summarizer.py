@@ -52,8 +52,8 @@ set_bg('assets/background.png')
 
 # Create text input fields
 input_text=''
-searchword = st.text_input(placeholder='Search Bar', value=input_text)
-input_text = st.text_input(placeholder='Location', value=input_text)
+searchword = st.text_input("", input_text, placeholder='Search Bar')
+input_text = st.text_input("", input_text, ,placeholder='Location')
 selected_option = ''
 
 def autocomplete_geolocation(query):
