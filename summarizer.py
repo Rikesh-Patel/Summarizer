@@ -329,8 +329,8 @@ if st.session_state['button'] == True:
                 plt.imshow(wc.recolor(color_func=color_func, random_state=3))
                 st.pyplot(fig)
                 
-            if corpus:
-                st.header()
+            # if corpus:
+                # st.header()
             st.text_area("All Reviews", corpus.replace("$", "\$"))
             # , unsafe_allow_html=False)
 
