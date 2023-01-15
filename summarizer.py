@@ -139,13 +139,11 @@ if st.session_state['button'] == True:
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
         from streamlit.components.v1 import html
 
-        col1, col2 = st.columns(2)
-        with col1:
-            html(df_display.to_html(escape=False, index=False).replace('<table border="1" class="dataframe">', '<table border="1" style="color: white" class="dataframe">'), height=400, scrolling=True)
 
-        with col2:
-            # Create a map centered at the average latitude and longitude of the restaurants
-            map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
+        html(df_display.to_html(escape=False, index=False).replace('<table border="1" class="dataframe">', '<table border="1" style="color: white" class="dataframe">'), height=400, scrolling=True)
+
+        # Create a map centered at the average latitude and longitude of the restaurants
+        map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
         # Current Location marker
         folium.Marker( location=[lat, lng], icon=folium.Icon(color='red') , popup="Current Location").add_to(map)
 
@@ -300,17 +298,14 @@ if st.session_state['button'] == True:
 
             def color_func(word, font_size, position, orientation, random_state=None,
                 **kwargs):
-                
+                hue = np.random.randint(low=0, high=360)
+    
                 if sentiment == 'positive':
-                    hue = np.random.randint(low=120, high=180)
-                    return hsv_to_rgb((hue, 1, 1))
+                    return "hsl(100, %d%%, 50)" % random.randint(60, 100)
                 if sentiment == 'neutral':
-                    hue = np.random.randint(low=0, high=360)
-                    saturation = np.random.uniform(low=0.0, high=0.2)
-                    return hsv_to_rgb((hue, saturation, 1))
+                    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
                 if sentiment == 'negative':
-                    hue = np.random.randint(low=0, high=360)
-                    return hsv_to_rgb((hue, 1, 1))
+                    return "hsl(%d%%, 100%%, 50)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
