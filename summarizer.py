@@ -322,7 +322,7 @@ if st.session_state['button'] == True:
                 processed_text = [word for word in stemmed_word if word not in stopword]
                 text_string=(" ").join(processed_text)
                 # Make word cloud
-                wc = WordCloud(colormap='tab20c',max_words=30,margin=10, collocation_threshold = 3   ).generate(text_string)
+                wc = WordCloud(colormap='hsv',max_words=30,margin=10, collocation_threshold = 3   ).generate(text_string)
                 # Applies colors from your image mask into your word cloud
                 fig = plt.figure(figsize=(15,8))
                 plt.title(sentiment.capitalize())
