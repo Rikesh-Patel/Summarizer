@@ -52,8 +52,8 @@ set_bg('assets/background.png')
 
 # Create text input fields
 input_text=''
-searchword = st.text_input('Search Bar', input_text)
-input_text = st.text_input('Location', input_text)
+searchword = st.text_input(placeholder='Search Bar', value=input_text)
+input_text = st.text_input(placeholder='Location', value=input_text)
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -137,7 +137,7 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        with st.container:
+        with st.container():
             st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
             st.write('')
 
