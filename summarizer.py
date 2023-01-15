@@ -137,11 +137,9 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        import streamlit_scrollable_textbox as stx
+        from streamlit.components.v1 import html
 
-
-        c = st.empty()
-        stx.scrollableTextbox(df_display.to_html(escape=False, index=False), height=500)
+        html(df_display.to_html(escape=False, index=False).replace('<tr style="text-align: right;">', '<tr style="text-align: right; color: white">'), height=100, scrolling=True)
 
         c.write('')
 
@@ -299,11 +297,11 @@ if st.session_state['button'] == True:
             
             def color_func(word, font_size, position, orientation, random_state=None,
                     **kwargs):
-                if sentiment == 'positive':
-                    return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
-                if sentiment == 'neutral':
-                    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
-                if sentiment == 'negative':
+                # if sentiment == 'positive':
+                #     return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
+                # if sentiment == 'neutral':
+                #     return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+                # if sentiment == 'negative':
                     return "hsl(0, 100%%, %d%%)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
