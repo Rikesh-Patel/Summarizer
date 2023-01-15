@@ -139,7 +139,7 @@ if st.session_state['button'] == True:
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
         from streamlit.components.v1 import html
 
-        html(st.text(df_display.to_html(escape=False, index=False)).replace('<table border="1" class="dataframe">', '<table border="1" style="color: white" class="dataframe">'), height=400, scrolling=True)
+        html(df_display.to_html(escape=False, index=False)).replace('<table border="1" class="dataframe">', '<table border="1" style="color: white" class="dataframe">'), height=400, scrolling=True)
 
 
         # Create a map centered at the average latitude and longitude of the restaurants
