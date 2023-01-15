@@ -305,7 +305,7 @@ if st.session_state['button'] == True:
                 # if sentiment == 'neutral':
                 #     return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
                 # if sentiment == 'negative':
-                return "hsl(120, 100%, {}%)".format(random.randint(50, 80))
+                return "hsl(120, 100%, {}%)".format(random.randint(0, 80))
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
@@ -332,7 +332,7 @@ if st.session_state['button'] == True:
                 
             if corpus:
                 st.header("All Reviews")
-            st.write(corpus.replace("$", "\$"), unsafe_allow_html=False)
+            st.text_area(corpus.replace("$", "\$"), unsafe_allow_html=False)
 
             # Get details
             import requests
