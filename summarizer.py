@@ -305,7 +305,7 @@ if st.session_state['button'] == True:
                 # if sentiment == 'neutral':
                 #     return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
                 # if sentiment == 'negative':
-                return "hsl({}, 100%, 50%)".format(random.randint(0, 360))
+                return "hsl(120, 100%, {}%)".format(random.randint(50, 80))
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
@@ -318,7 +318,7 @@ if st.session_state['button'] == True:
                 wnl = WordNetLemmatizer()
                 snowball_stemmer = SnowballStemmer("english")
                 word_tokens = nltk.word_tokenize(cleaned_text)
-                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous', 'y', 'er', 'ant')) else  snowball_stemmer.stem(word) for word in word_tokens]
+                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous', 'y', 'er', 'ant', 'ed')) else  snowball_stemmer.stem(word) for word in word_tokens]
                 processed_text = [word for word in stemmed_word if word not in stopword]
                 text_string=(" ").join(processed_text)
                 # Make word cloud
