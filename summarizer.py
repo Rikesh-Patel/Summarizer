@@ -137,10 +137,11 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        from streamlit.components.v1 import html
+        import streamlit_scrollable_textbox as stx
+
 
         c = st.empty()
-        html(df_display.to_html(escape=False, index=False), height=100, scrolling=True)
+        stx.scrollableTextbox(df_display.to_html(escape=False, index=False), height=500)
 
         c.write('')
 
