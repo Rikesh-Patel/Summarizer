@@ -139,9 +139,11 @@ if st.session_state['button'] == True:
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
         from streamlit.components.v1 import html
 
-        html(df_display.to_html(escape=False, index=False).replace('<tr style="text-align: right;">', '<tr style="text-align: right; color: white">'), height=100, scrolling=True)
+        # html(
+            st.text(df_display.to_html(escape=False, index=False))
+            # .replace('<tr style="text-align: right;">', '<tr style="text-align: right; color: white">')
+            # , height=100, scrolling=True)
 
-        c.write('')
 
         # Create a map centered at the average latitude and longitude of the restaurants
         map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
