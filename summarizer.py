@@ -52,8 +52,8 @@ set_bg('assets/background.png')
 
 # Create text input fields
 input_text=''
-searchword = st.text_input("", input_text, placeholder='Search Bar')
-input_text = st.text_input("", input_text, placeholder='Location')
+searchword = st.text_input("Search Bar", input_text, placeholder='Type: ramen, tacos, pasta, burgers, chicken')
+input_text = st.text_input("", input_text, placeholder='Search Location')
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -138,7 +138,7 @@ if st.session_state['button'] == True:
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
         with st.container():
-            st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+            st.text(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
             st.write('')
 
         # Create a map centered at the average latitude and longitude of the restaurants
