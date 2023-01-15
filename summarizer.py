@@ -137,9 +137,9 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        with st.container():
-            st.text(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
-            st.write('')
+        c = st.empty()
+        c.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+        c.write('')
 
         # Create a map centered at the average latitude and longitude of the restaurants
         map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
