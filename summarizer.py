@@ -140,7 +140,7 @@ if st.session_state['button'] == True:
         from streamlit.components.v1 import html
 
         # html(
-            st.text(df_display.to_html(escape=False, index=False))
+        st.text(df_display.to_html(escape=False, index=False))
             # .replace('<tr style="text-align: right;">', '<tr style="text-align: right; color: white">')
             # , height=100, scrolling=True)
 
