@@ -137,8 +137,9 @@ if st.session_state['button'] == True:
         df_display = df_display.loc[:,df_display.columns.isin(['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'])]
         df_display = df_display[['name', 'image', 'review_count','categories', 'rating', 'transactions', 'price', 'display_phone','distance','location.display_address'] ]
         df_display.columns =    ['Name', 'Image', 'Reviews','Type', 'Rating', 'Transactions', 'Price', 'Phone','Miles','Address'] 
-        st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
-        st.write('')
+        with st.container:
+            st.write(df_display.to_html(escape=False, index=False), unsafe_allow_html=True)
+            st.write('')
 
         # Create a map centered at the average latitude and longitude of the restaurants
         map = folium.Map(location=[lat, lng], zoom_start=13,  scrollWheelZoom=False)
@@ -291,6 +292,15 @@ if st.session_state['button'] == True:
             import gensim
             import numpy as np
             import seaborn as sns
+            
+            def color_func(word, font_size, position, orientation, random_state=None,
+                    **kwargs):
+                if sentiment == 'positive':
+                    return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
+                if sentiment == 'neutral':
+                    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+                if sentiment == 'negative':
+                    return "hsl(0, 100%%, %d%%)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
@@ -303,16 +313,16 @@ if st.session_state['button'] == True:
                 wnl = WordNetLemmatizer()
                 snowball_stemmer = SnowballStemmer("english")
                 word_tokens = nltk.word_tokenize(cleaned_text)
-                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous', 'y')) else  snowball_stemmer.stem(word) for word in word_tokens]
+                stemmed_word = [wnl.lemmatize(word) if wnl.lemmatize(word).endswith(('e','ous', 'y', 'er')) else  snowball_stemmer.stem(word) for word in word_tokens]
                 processed_text = [word for word in stemmed_word if word not in stopword]
                 text_string=(" ").join(processed_text)
                 # Make word cloud
-                wc = WordCloud(colormap='tab20c',max_words=30,margin=10).generate(text_string)
+                wc = WordCloud(colormap='tab20c',max_words=30,margin=10, collocation_threshold = 3   ).generate(text_string)
                 # Applies colors from your image mask into your word cloud
                 fig = plt.figure(figsize=(15,8))
-                plt.title(sentiment)
+                plt.title(sentiment.capitalize())
                 plt.axis("off")
-                plt.imshow(wc)
+                plt.imshow(wc.recolor(color_func=color_func, random_state=3))
                 st.pyplot(fig)
                 
             if corpus:
