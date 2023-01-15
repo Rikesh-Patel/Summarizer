@@ -323,7 +323,7 @@ if st.session_state['button'] == True:
                 fig = plt.figure(figsize=(15,8))
                 plt.title(sentiment.capitalize())
                 plt.axis("off")
-                plt.imshow(wc.recolor(color_func=red_hue_color_func, random_state=3))
+                plt.imshow(wc.recolor(color_func=color_func, random_state=3))
                 st.pyplot(fig)
                 
             if corpus:
