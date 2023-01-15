@@ -296,12 +296,12 @@ if st.session_state['button'] == True:
             import random
             def color_func(word, font_size, position, orientation, random_state=None,
                 **kwargs):
-            if sentiment == 'positive':
-                return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
-            if sentiment == 'neutral':
-                return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
-            if sentiment == 'negative':
-                return "hsl(0, 100%%, %d%%)" % random.randint(60, 100)
+                if sentiment == 'positive':
+                    return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
+                if sentiment == 'neutral':
+                    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+                if sentiment == 'negative':
+                    return "hsl(0, 100%%, %d%%)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
