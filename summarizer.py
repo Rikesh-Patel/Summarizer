@@ -293,10 +293,15 @@ if st.session_state['button'] == True:
             import gensim
             import numpy as np
             import seaborn as sns
-            
-            def red_hue_color_func(word, font_size, position, orientation, random_state=None, **kwargs):
-                hue = np.random.randint(low=0, high=360)
-                return hsv_to_rgb((hue, 1, 1))
+            import random
+            def color_func(word, font_size, position, orientation, random_state=None,
+                **kwargs):
+            if sentiment == 'positive':
+                return "hsl(120, 0%%, %d%%)" % random.randint(60, 100)
+            if sentiment == 'neutral':
+                return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+            if sentiment == 'negative':
+                return "hsl(0, 100%%, %d%%)" % random.randint(60, 100)
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
