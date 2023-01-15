@@ -53,7 +53,7 @@ set_bg('assets/background.png')
 # Create text input fields
 input_text=''
 searchword = st.text_input("Search Bar", input_text, placeholder='Type: ramen, tacos, pasta, burgers, chicken')
-input_text = st.text_input("", input_text, placeholder='Search Location', label_visibility='collapsed')
+input_text = st.text_input("Location", input_text, placeholder='Search Location', label_visibility='collapsed')
 selected_option = ''
 
 def autocomplete_geolocation(query):
@@ -70,7 +70,7 @@ def autocomplete_geolocation(query):
 # Update the autocomplete options of the radio buttons based on the text input
 if input_text:
   options = [address['display_name'] for address in autocomplete_geolocation(input_text)]
-  selected_option = st.radio('', options)
+  selected_option = st.radio('Options', options, label_visibility='collapsed')
 else:
   options = []
 
