@@ -297,15 +297,14 @@ if st.session_state['button'] == True:
             from matplotlib.colors import hsv_to_rgb
 
             def color_func(word, font_size, position, orientation, random_state=None,
-                **kwargs):
-                hue = np.random.randint(low=0, high=360)
-    
-                # if sentiment == 'positive':
-                #     return "hsl(100, %d%, 50)" % random.randint(60, 100)
-                # if sentiment == 'neutral':
-                #     return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
-                # if sentiment == 'negative':
-                return "hsl(120, 100%, {}%)".format(random.randint(0, 80))
+                **kwargs):    
+                if sentiment == 'positive':
+                    return "hsl(120, 100%, {}%)".format(random.randint(30, 90))
+                if sentiment == 'neutral':
+                    return "hsl(0, 0%, {}%)".format(random.randint(50, 80))
+                if sentiment == 'negative':
+                    return "hsl(0, 100%, {}%)".format(random.randint(50, 80))
+                
 
             tokenizer = RegexpTokenizer(r'\w+')
             for sentiment in ['positive', 'neutral', 'negative']:
@@ -331,8 +330,9 @@ if st.session_state['button'] == True:
                 st.pyplot(fig)
                 
             if corpus:
-                st.header("All Reviews")
-            st.text_area(corpus.replace("$", "\$"), unsafe_allow_html=False)
+                st.header()
+            st.text_area("All Reviews", corpus.replace("$", "\$"))
+            # , unsafe_allow_html=False)
 
             # Get details
             import requests
