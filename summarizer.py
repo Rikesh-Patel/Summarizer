@@ -64,7 +64,10 @@ def autocomplete_geolocation(query):
         "limit": 4,
         "addressdetails": 1
     }
-    response = requests.get(url, params=params)
+    headers = {
+        'User-Agent': 'YourAppName/1.0 (your-email@example.com)'
+    }
+    response = requests.get(url, params=params, headers=headers)
     return response.json()
 
 # Update the autocomplete options of the radio buttons based on the text input
