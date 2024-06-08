@@ -21,4 +21,3 @@ NRCLex==3.0.0
 leafmap==0.15.0
 folium==0.12.1.post1
 streamlit-folium==0.8.1
-random
